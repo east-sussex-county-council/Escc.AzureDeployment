@@ -4,7 +4,7 @@ set VALID=true
 if String.Empty%1==String.Empty set VALID=false
 if String.Empty%2==String.Empty set VALID=false
 
-if %VALID%=false (
+if %VALID%==false (
 	echo.
 	echo Usage: AddApp ^<git base URL^> ^<git repo name^>
 	echo.
