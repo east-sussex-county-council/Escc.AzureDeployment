@@ -53,7 +53,7 @@ call git init
 echo [config] > .deployment
 echo command = AzureKuduDeploy.cmd >> .deployment
 
-type Escc.EastSussexGovUK.AzureDeployment\AzureKuduHeader.cmd Escc.EastSussexGovUK.AzureDeployment\AzureKuduApplications.cmd Escc.EastSussexGovUK.AzureDeployment\AzureKuduFooter.cmd > AzureKuduDeploy.cmd
+type %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduHeader.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduApplications.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduFooter.cmd > AzureKuduDeploy.cmd
 
 echo @echo off > AddApp.cmd
 echo Escc.EastSussexGovUK.AzureDeployment\AddApp.cmd %%1 >> AddApp.cmd

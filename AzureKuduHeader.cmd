@@ -59,5 +59,3 @@ IF NOT DEFINED MSBUILD_PATH (
   SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 )
 
-for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
-
