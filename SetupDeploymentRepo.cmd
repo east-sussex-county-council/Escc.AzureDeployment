@@ -75,11 +75,7 @@ call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 Escc.EastSussexGovUK.AzureDeployment
 
 :: Pull in the applications to deploy as git subtrees.
 
-call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 SeparateRepo
-
-::call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 SeparateRepo
-::call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 WebApplication1
-::call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 WebApplication2
+call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %2
 
 
 :: Take user back to where they started
