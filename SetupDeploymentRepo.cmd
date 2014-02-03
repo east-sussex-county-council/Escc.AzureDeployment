@@ -56,10 +56,10 @@ echo command = AzureKuduDeploy.cmd >> .deployment
 type %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduHeader.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduApplications.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduFooter.cmd > AzureKuduDeploy.cmd
 
 echo @echo off > AddApp.cmd
-echo Escc.EastSussexGovUK.AzureDeployment\AddApp.cmd %%1 >> AddApp.cmd
+echo Escc.EastSussexGovUK.AzureDeployment\AddApp.cmd %%1 %%2 >> AddApp.cmd
 
 echo @echo off > UpdateApp.cmd
-echo Escc.EastSussexGovUK.AzureDeployment\AddApp.cmd %%1 >> UpdateApp.cmd
+echo Escc.EastSussexGovUK.AzureDeployment\UpdateApp.cmd %%1 >> UpdateApp.cmd
 
 call git add .deployment
 call git add AddApp.cmd
@@ -68,12 +68,18 @@ call git add AzureKuduDeploy.cmd
 call git commit -m "Configure Kudu deployment script, and add shortcuts to add and update repo"
 
 
-:: Pull in the applications to deploy as git subtrees.
+:: Download the latest version of the deployment scripts from git
 
 call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 Escc.EastSussexGovUK.AzureDeployment
+
+
+:: Pull in the applications to deploy as git subtrees.
+
 call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 SeparateRepo
-call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 WebApplication1
-call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 WebApplication2
+
+::call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 SeparateRepo
+::call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 WebApplication1
+::call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 WebApplication2
 
 
 :: Take user back to where they started
