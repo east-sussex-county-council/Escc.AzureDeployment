@@ -55,17 +55,9 @@ echo command = AzureKuduDeploy.cmd >> .deployment
 
 type %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduHeader.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduApplications.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduFooter.cmd > AzureKuduDeploy.cmd
 
-echo @echo off > AddApp.cmd
-echo Escc.EastSussexGovUK.AzureDeployment\AddApp.cmd %%1 %%2 >> AddApp.cmd
-
-echo @echo off > UpdateApp.cmd
-echo Escc.EastSussexGovUK.AzureDeployment\UpdateApp.cmd %%1 >> UpdateApp.cmd
-
 call git add .deployment
-call git add AddApp.cmd
-call git add UpdateApp.cmd
 call git add AzureKuduDeploy.cmd
-call git commit -m "Configure Kudu deployment script, and add shortcuts to add and update repo"
+call git commit -m "Configure Kudu deployment script"
 
 
 :: Download the latest version of the deployment scripts from git

@@ -22,23 +22,25 @@ Clone this repository and then, from a command line, run the following command:
 
 This will create a new git repository in `<directory to create>` which includes every application on the East Sussex County Council website. You can then set up the Azure Website as a remote for that repository and push to it.
 
-Deploy an updated application
------------------------------
+Update your deployment repository
+---------------------------------
 
-When you update an application, first push it to our git server. To deploy it open a command line at the root of your deployment repository and run the following command:
+Run `git pull` on this repository to ensure you have the latest deployment scripts. Then, open a command line at the root of your deployment repository and run the following command:
 
-`UpdateApp <git repo name>`
+`<path to this repository>\UpdateAll <git base URL>`
+
+or, if you're sure only one application has changed, you can run this command:
+
+`<path to this repository>\AddOrUpdateApp <git base URL> <git repo name>`
 
 You can then push the deployment repository to Azure.
+
+Note that you can't run the script from the copy of `Escc.EastSussexGovUK.AzureDeployment` which exists inside your deployment repository, because the process involves switching to branches where those scripts are not available.
 
 Deploy a new application
 ------------------------
 
-If you've created a new application for the website, you need to modify `SetupDeploymentRepo.cmd` and `AzureDeploy.cmd` to include your application repository.
+If you've created a new application for the website, you need to modify `UpdateAll.cmd` and `AzureKuduApplications.cmd` to include your application repository.
 
-Then (or if someone else created the application and you just need to get it), open a command line at the root of your deployment repository and run the following command:
-
-`AddApp <git base URL> <git repo name>`
-
-You can then push the deployment repository to Azure.
+Commit and push the updated scripts, then follow the steps under 'Update your deployment repository'.
    
