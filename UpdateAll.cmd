@@ -13,9 +13,24 @@ if %VALID%==false (
 )
 
 
-:: Get the script folder, even if executed from elsewhere, so we can call other scripts
+:: Get the current folder to come back to, and the script folder, even 
+:: if executed from elsewhere, so we can call other scripts
+
+set UPDATE_ALL_START_PATH=%cd% 
 for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 SeparateRepo
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication1
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2
+
+:: Switch to the script folder, run git pull to ensure the scripts are up-to-date,
+:: then switch back to update the deployment repo
+
+cd /d %ESCC_DEPLOYMENT_SCRIPTS%
+call git pull origin master
+cd /d %UPDATE_ALL_START_PATH%
+
+
+:: Now that we have the latest scripts, update the deployment repo
+
+call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAllPart2 %1
+
+:exit
+exit /b 

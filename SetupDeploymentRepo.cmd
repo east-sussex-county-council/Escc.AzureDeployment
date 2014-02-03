@@ -60,11 +60,6 @@ call git add AzureKuduDeploy.cmd
 call git commit -m "Configure Kudu deployment script"
 
 
-:: Download the latest version of the deployment scripts from git
-
-call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %2 Escc.EastSussexGovUK.AzureDeployment
-
-
 :: Pull in the applications to deploy as git subtrees.
 
 call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %2

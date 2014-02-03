@@ -25,7 +25,7 @@ This will create a new git repository in `<directory to create>` which includes 
 Update your deployment repository
 ---------------------------------
 
-Run `git pull` on this repository to ensure you have the latest deployment scripts. Then, open a command line at the root of your deployment repository and run the following command:
+Open a command line at the root of your deployment repository and run the following command:
 
 `<path to this repository>\UpdateAll <git base URL>`
 
