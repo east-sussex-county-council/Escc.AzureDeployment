@@ -8,8 +8,8 @@ REM packages\NUnit.Runners.2.6.3\tools\nunit-console nunit.tests\nunit.tests.csp
 REM IF !ERRORLEVEL! NEQ 0 goto error
 
 
-call Escc.EastSussexGovUK.AzureDeployment\AzureBuildLibrary SeparateRepo\SeparateRepoProjectDependency.csproj
-IF !ERRORLEVEL! NEQ 0 goto error
+REM call Escc.EastSussexGovUK.AzureDeployment\AzureBuildLibrary SeparateRepo\SeparateRepoProjectDependency.csproj
+REM IF !ERRORLEVEL! NEQ 0 goto error
 
 call Escc.EastSussexGovUK.AzureDeployment\AzureBuildApplication WebApplication1\WebApplication1\WebApplication1.csproj
 IF !ERRORLEVEL! NEQ 0 goto error
