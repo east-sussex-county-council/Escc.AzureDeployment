@@ -9,7 +9,7 @@ echo.
 echo Restoring NuGet packages for %1...
 
 IF /I "%1" NEQ "" (
-  call "%NUGET_EXE%" restore "%DEPLOYMENT_SOURCE%\%1"
+  call "%NUGET_EXE%" restore %1
 )
 
 :exit
