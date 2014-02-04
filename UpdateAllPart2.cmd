@@ -26,8 +26,10 @@ call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2
 
 :: For any apps removed from the website, delete them from the deployment repo if present
 :: so that they don't get redeployed
+::
+:: eg call %ESCC_DEPLOYMENT_SCRIPTS%DeleteApp Escc.ExampleApplication
 
-call %ESCC_DEPLOYMENT_SCRIPTS%DeleteApp WebApplication2
+
 
 :: Update the Kudu deployment script in case its source files have changed
 
