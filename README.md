@@ -40,7 +40,7 @@ Note that you can't run the script from the copy of `Escc.EastSussexGovUK.AzureD
 Deploy a new application
 ------------------------
 
-If you've created a new application for the website, you need to modify `UpdateAll.cmd` and `AzureKuduApplications.cmd` to include your application repository.
+If you've created a new application for the website, you need to modify `UpdateAllPart2.cmd` and `AzureKuduApplications.cmd` to include your application repository.
 
 Commit and push the updated scripts, then follow the steps under 'Update your deployment repository'.
 
@@ -49,10 +49,8 @@ Delete an obsolete application
 
 Follow these steps to completely remove an application from the website:
 
-1.	Remove references to the application from `UpdateAll.cmd` and `AzureKuduApplications.cmd` in this repository. Commit and push your changes.
-2.	To update your deployment repository, either:
-	1. Delete your deployment repository and recreate it using the steps above.
-	2. Open a command line at the root of your deployment repository and run `git rm -rf <git repo name>` followed by `git branch -D <git repo name>`. Commit the changes to your deployment repository. Then, remove the build command from `AzureKuduDeploy.cmd`.
+1.	Remove references to the application from `AzureKuduApplications.cmd` in this repository, and move it from the 'Add or update' to the 'Delete' section of `UpdateAllPart2.cmd`. Commit and push your changes.
+2.	Update your deployment repository using `UpdateAll` as described in 'Update your deployment repository' above.
 3.	Use FTP to connect to Azure and delete the application folder.
 4.	Delete any related resources such as databases and storage containers.
 5.	On the Configure tab in the Azure Portal, remove any application settings, connection strings, virtual applications and directories associated with the application.
