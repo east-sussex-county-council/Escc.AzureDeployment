@@ -26,6 +26,8 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\AzureBuildApplication" "%DEPLOYMENT_SOURCE%\WebApplication2\WebApplication2.csproj"
 IF !ERRORLEVEL! NEQ 0 goto error
 
+if exist web.config.example copy "%DEPLOYMENT_SOURCE%\WebApplication2\web.config.example" "%DEPLOYMENT_SOURCE%\WebApplication2\web.config"
+
 call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\AzureSync" WebApplication2
 IF !ERRORLEVEL! NEQ 0 goto error
 
