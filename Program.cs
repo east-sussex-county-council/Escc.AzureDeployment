@@ -13,10 +13,17 @@ namespace Escc.EastSussexGovUK.AzureDeployment
         {
             var configFile = new XmlDocument();
             configFile.Load(args[0]);
-            var node = configFile.SelectSingleNode("/configuration/CustomSection/add[@key='CustomConfig']/@value");
-            if (node != null)
+            var nodes = configFile.SelectNodes("/configuration/Escc.EastSussexGovUK.AzureDeployment/add");
+            if (nodes != null)
             {
-                node.Value = Environment.GetEnvironmentVariable(node.Value);
+                foreach (XmlElement configuredTransform in nodes)
+                {
+                    var nodeToTransform = configFile.SelectSingleNode(configuredTransform.GetAttribute("key"));
+                    if (nodeToTransform != null)
+                    {
+                        nodeToTransform.Value = Environment.GetEnvironmentVariable(configuredTransform.GetAttribute("value"));
+                    }
+                }
             }
 
             configFile.Save(args[0]);
