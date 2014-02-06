@@ -4,7 +4,6 @@
 
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
-if String.Empty%2==String.Empty set VALID=false
 
 if %VALID%==false (
 	echo.
@@ -22,7 +21,7 @@ for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 :: Pull from Azure to make sure the deployment repo is in sync
 :: %2 should always be blank unless this script is called by SetupDeploymentRepo.cmd, when it should be 'false'
 
-if %2 NEQ false (
+if String.Empty%2==String.Empty (
   echo.
   echo ------------------------------------------------------
   echo Syncing deployment repo with Azure
@@ -59,3 +58,6 @@ echo ------------------------------------------------------
 echo.
 type %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduHeader.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduApplications.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduFooter.cmd > AzureKuduDeploy.cmd
 call git commit AzureKuduDeploy.cmd -m "Update Kudu deployment script"
+
+:exit
+exit /b %ERRORLEVEL%

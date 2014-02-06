@@ -1,8 +1,9 @@
 @echo off
 
-:: Check if the current directory is empty. The command to check this is an odd one but it works.
+:: Check if the current directory is empty. The command to check this is an odd one. It works, but doesn't find a .git directory.
 
 dir /b | find /v "Some arbitrary string that won't be found" >nul && (set VALID=false) || (set VALID=true)
+if exist .git set VALID=false
 if %VALID%==false (
   echo.
   echo This script must be run from an empty directory, which will become the root of your deployment repository.
@@ -56,7 +57,7 @@ call git commit -m "Configure Kudu deployment script"
 :: Pull in the applications to deploy as git subtrees.
 :: The 'false' parameter prevents syncing with Azure as the git remote won't be setup yet.
 
-call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %2 false
+call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %1 false
 
 echo.
 echo -------------------------------------------------------------------------
@@ -65,8 +66,6 @@ echo.
 echo Next, set up a git remote called 'azure' with the URL of your Azure 
 echo website's git repository. You can find the URL on echo the Deployments 
 echo page for your website in the Azure portal.
-echo.
-pause
 echo -------------------------------------------------------------------------
 echo.
 

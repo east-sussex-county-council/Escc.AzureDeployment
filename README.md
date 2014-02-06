@@ -35,6 +35,15 @@ You can then push the deployment repository to Azure.
 
 Note that you can't run the script from the copy of `Escc.EastSussexGovUK.AzureDeployment` which exists inside your deployment repository, because the process involves switching to branches where those scripts are not available.
 
+### A shortcut
+
+You can make it easier to update your repository by creating a batch file somewhere in your path with the following line. Replace `<path to this repository>` and `<git base URL>` with the correct values for your environment.
+
+`@<path to this repository>\UpdateAll <git base URL>`
+
+You can then simply type `UpdateAll` in the root directory of your deployment repository.
+
+
 Deploy a new application
 ------------------------
 

@@ -20,7 +20,7 @@ if %VALID%==false (
 :: so don't document it for the user.
 
 set VALID=true
-if String.Empty%1==String.Empty set VALID=false
+if "%1"=="" set VALID=false
 
 if %VALID%==false (
 	echo.
