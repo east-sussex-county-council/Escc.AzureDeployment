@@ -1,48 +1,42 @@
 @echo off
 
+:: Check if the current directory is empty. The command to check this is an odd one but it works.
+
+dir /b | find /v "Some arbitrary string that won't be found" >nul && (set VALID=false) || (set VALID=true)
+if %VALID%==false (
+  echo.
+  echo This script must be run from an empty directory, which will become the root of your deployment repository.
+  echo.
+  goto exit
+)
+
+:: Check that a git base URL has been specified as a parameter
 
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
-if String.Empty%2==String.Empty set VALID=false
 
 if %VALID%==false (
 	echo.
-	echo Usage: SetupDeploymentRepo ^<directory to create^> ^<git base URL^>
+	echo Usage: SetupDeploymentRepo ^<git base URL^>
 	echo.
-	echo ^<directory to create^> must be a full path which does not exist yet
-	echo and is not inside an existing git repository.
-	echo.
-	echo eg SetupDeploymentRepo c:\git\new-directory http://github.com/east-sussex-county-council/
+	echo eg SetupDeploymentRepo http://github.com/east-sussex-county-council/
 	echo.
 	goto exit
 )
 
+:: Get the script folder, even if executed from elsewhere, so we can call other scripts
 
-if exist %1 (
-	echo.
-	echo The directory %1 already exists.
-	echo.
-	echo ^<directory-to-create^> must be a full path which does not exist yet
-	echo and is not inside an existing git repository.
-	echo.
-	goto exit
-)
-
-
-:: Get the current folder to come back to at the end, and the script folder, even 
-:: if executed from elsewhere, so we can call other scripts
-
-set START_PATH=%cd% 
 for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 
+:: Initialise a git repo. We have to use call for git commands otherwise the script terminates.
 
-:: Create the new folder and initialise a git repo. Have to use call for git commands
-:: otherwise the script terminates.
+echo.
+echo -------------------------------------------------------------------------
+echo Creating git deployment repository and configuring Kudu deployment script
+echo -------------------------------------------------------------------------
+echo.
 
-md %1
-cd /d %1
 call git init
-
 
 :: Create and commit file to trigger Kudu custom deployment script, and add useful shortcuts
 :: to scripts for adding and updating applications.
@@ -53,20 +47,28 @@ call git init
 echo [config] > .deployment
 echo command = AzureKuduDeploy.cmd >> .deployment
 
-type %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduHeader.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduApplications.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduFooter.cmd > AzureKuduDeploy.cmd
+echo. > AzureKuduDeploy.cmd
 
 call git add .deployment
 call git add AzureKuduDeploy.cmd
 call git commit -m "Configure Kudu deployment script"
 
-
 :: Pull in the applications to deploy as git subtrees.
+:: The 'false' parameter prevents syncing with Azure as the git remote won't be setup yet.
 
-call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %2
+call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %2 false
 
-
-:: Take user back to where they started
-cd /d %START_PATH%
+echo.
+echo -------------------------------------------------------------------------
+echo Deployment repository created. 
+echo.
+echo Next, set up a git remote called 'azure' with the URL of your Azure 
+echo website's git repository. You can find the URL on echo the Deployments 
+echo page for your website in the Azure portal.
+echo.
+pause
+echo -------------------------------------------------------------------------
+echo.
 
 :exit
 exit /b 

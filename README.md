@@ -12,15 +12,13 @@ Our custom deployment script [runs unit tests before deployment](http://channel9
 Set up your deployment repository
 ---------------------------------
 
-Clone this repository and then, from a command line, run the following command:
+Clone this repository, then open a command line in a new, empty directory where you want to create the deployment repository:
 
-`SetupDeploymentRepo <directory to create> <git base URL>`
-
-`<directory-to-create>` must be a full path which does not exist yet and is not inside an existing git repository.
+`<path to this repository>\SetupDeploymentRepo <git base URL>`
 
 `<git base url>` is a URL such as `https://github.com/east-sussex-county-council/` to which we can add a project name followed by `.git` to get a full repository URL.
 
-This will create a new git repository in `<directory to create>` which includes every application on the East Sussex County Council website. You can then set up the Azure Website as a remote for that repository and push to it.
+This will create a new git repository which includes every application on the East Sussex County Council website. You can then set up the Azure Website as a remote for that repository and push to it.
 
 Update your deployment repository
 ---------------------------------

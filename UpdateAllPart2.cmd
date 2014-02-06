@@ -4,6 +4,7 @@
 
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
+if String.Empty%2==String.Empty set VALID=false
 
 if %VALID%==false (
 	echo.
@@ -19,13 +20,17 @@ if %VALID%==false (
 for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 
 :: Pull from Azure to make sure the deployment repo is in sync
-echo.
-echo ------------------------------------------------------
-echo Syncing deployment repo with Azure
-echo ------------------------------------------------------
-echo.
+:: %2 should always be blank unless this script is called by SetupDeploymentRepo.cmd, when it should be 'false'
 
-call git pull azure master
+if %2 NEQ false (
+  echo.
+  echo ------------------------------------------------------
+  echo Syncing deployment repo with Azure
+  echo ------------------------------------------------------
+  echo.
+
+  call git pull azure master
+)
 
 :: Add or update all the apps which are currently part of the website
 ::
@@ -44,7 +49,8 @@ call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2
 
 
 
-:: Update the Kudu deployment script in case its source files have changed
+:: Update the Kudu deployment script in case its source files have changed.
+:: Combine 3 files because we want to autogenerate the second one at some point.
 
 echo.
 echo ------------------------------------------------------

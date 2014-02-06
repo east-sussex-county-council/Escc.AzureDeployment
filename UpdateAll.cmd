@@ -14,7 +14,10 @@ if %VALID%==false (
   goto exit
 )
 
-:: Check that the git base URL is specified as a parameter
+:: Check that the git base URL is specified as a parameter.
+::
+:: There is a second parameter which is optional, and only needed by SetupDeploymentRepo.cmd, 
+:: so don't document it for the user.
 
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
@@ -49,7 +52,7 @@ cd /d %UPDATE_ALL_START_PATH%
 
 :: Now that we have the latest scripts, update the deployment repo
 
-call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAllPart2 %1
+call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAllPart2 %1 %2
 
 :exit
 exit /b 
