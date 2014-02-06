@@ -30,13 +30,10 @@ call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\AzureSync" WebApp
 IF !ERRORLEVEL! NEQ 0 goto error
 
 if exist "%DEPLOYMENT_SOURCE%\WebApplication2\web.config.example" (
-  call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\AzureBuildLibrary" "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\Escc.EastSussexGovUK.AzureDeployment.csproj"
+  call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\AzureBuildLibrary" "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform.csproj"
   IF !ERRORLEVEL! NEQ 0 goto error
 
-  copy "%DEPLOYMENT_SOURCE%\WebApplication2\web.config.example" "%DEPLOYMENT_SOURCE%\WebApplication2\web.config"
-  "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\bin\Release\Escc.EastSussexGovUK.AzureDeployment.exe" "%DEPLOYMENT_SOURCE%\WebApplication2\web.config"
-  copy "%DEPLOYMENT_SOURCE%\WebApplication2\web.config" "%DEPLOYMENT_TARGET%\WebApplication2\web.config"
-  del "%DEPLOYMENT_SOURCE%\WebApplication2\web.config"
+  "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\bin\Release\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform.exe" "%DEPLOYMENT_SOURCE%\WebApplication2\web.config.example" "%DEPLOYMENT_TARGET%\WebApplication2\web.config"
+  IF !ERRORLEVEL! NEQ 0 goto error
 )
-IF !ERRORLEVEL! NEQ 0 goto error
 

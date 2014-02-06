@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Escc.EastSussexGovUK.AzureDeployment")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Escc.EastSussexGovUK.AzureDeployment.ConfigTransform")]
+[assembly: AssemblyDescription("Updates a web.config file with values from a live environment")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("East Sussex County Council")]
 [assembly: AssemblyProduct("Escc.EastSussexGovUK.AzureDeployment")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
@@ -34,3 +35,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en-GB")]
