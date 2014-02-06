@@ -61,12 +61,6 @@ IF NOT DEFINED MSBUILD_PATH (
 
 :: Download test runner and build config transform app
 
-echo.
-echo ------------------------------------------------------
-echo Building test runner and web.config transformer
-echo ------------------------------------------------------
-echo.
-
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\NugetRestore" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.sln"
