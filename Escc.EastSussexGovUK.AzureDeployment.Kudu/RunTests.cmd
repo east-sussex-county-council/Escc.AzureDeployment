@@ -1,7 +1,7 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 if String.Empty%1==String.Empty (
-	echo Usage: AzureRunTests ^<relative path to .csproj file^>
+	echo Usage: RunTests ^<relative path to .csproj file^>
 	goto exit
 )
 

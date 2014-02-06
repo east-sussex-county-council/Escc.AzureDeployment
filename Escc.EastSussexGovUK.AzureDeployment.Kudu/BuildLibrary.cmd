@@ -1,7 +1,7 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 if String.Empty%1==String.Empty (
-	echo Usage: AzureBuildLibrary ^<relative path to .csproj file^>
+	echo Usage: BuildLibrary ^<relative path to .csproj file^>
 	goto exit
 )
 

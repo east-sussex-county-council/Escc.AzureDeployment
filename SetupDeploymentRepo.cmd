@@ -46,12 +46,12 @@ call git init
 :: automatically tracking the first subtree remote branch.
 
 echo [config] > .deployment
-echo command = AzureKuduDeploy.cmd >> .deployment
+echo command = KuduDeploy.cmd >> .deployment
 
-echo. > AzureKuduDeploy.cmd
+echo. > KuduDeploy.cmd
 
 call git add .deployment
-call git add AzureKuduDeploy.cmd
+call git add KuduDeploy.cmd
 call git commit -m "Configure Kudu deployment script"
 
 :: Pull in the applications to deploy as git subtrees.

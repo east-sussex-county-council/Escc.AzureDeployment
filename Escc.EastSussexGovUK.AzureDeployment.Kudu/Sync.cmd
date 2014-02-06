@@ -1,7 +1,7 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 if String.Empty%1==String.Empty (
-	echo Usage: AzureSync ^<relative path to deployment folder^>
+	echo Usage: Sync ^<relative path to deployment folder^>
 	goto exit
 )
 

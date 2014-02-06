@@ -1,7 +1,7 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 if String.Empty%1==String.Empty (
-	echo Usage: AzureNugetRestore ^<relative path to .sln file^>
+	echo Usage: NugetRestore ^<relative path to .sln file^>
 	goto exit
 )
 
