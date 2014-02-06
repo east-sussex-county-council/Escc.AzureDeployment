@@ -9,9 +9,15 @@ We then push the repository to Azure, where it is deployed by [Kudu](https://git
 
 Our custom deployment script [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/) and manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore).
 
-We strong name our assemblies uploading our key file to Azure and creating an `SCM_BUILD_ARGS` app setting on the Configure page in the management portal for the Azure Website. The app setting value looks like this:
+### Strong named assemblies
 
- `/p:SignAssembly=true /p:AssemblyOriginatorKeyFile="<path-to-key.snk>"`
+We give some of our assemblies a strong name, but the path to the strong name key file needs to be different on Azure. We upload three files to a directory on Azure:
+
+* our key file
+* a copy of `replace-strong-name.xslt.example` containing the real path to the key file
+* a copy of [msxsl](http://www.microsoft.com/en-gb/download/details.aspx?id=21714) to apply the transform to each `.csproj` file before building it 
+
+We then put the path to that directory into a `STRONG_NAME_PATH` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
 Set up your deployment repository
 ---------------------------------
