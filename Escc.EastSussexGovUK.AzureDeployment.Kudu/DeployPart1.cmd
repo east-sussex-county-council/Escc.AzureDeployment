@@ -69,9 +69,9 @@ echo.
 
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\NugetRestore" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.sln"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\NugetRestore" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.sln"
 IF !ERRORLEVEL! NEQ 0 goto error
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\BuildLibrary" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform.csproj"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\BuildLibrary" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform.csproj"
 IF !ERRORLEVEL! NEQ 0 goto error
 
