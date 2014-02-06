@@ -1,5 +1,8 @@
 @echo off
 
+:: Check that this script is being run from the root of the deployment repository.
+:: Exit if not, as we don't want to run these git commands anywhere else.
+
 set VALID=true
 if not exist .git set VALID=false
 if not exist .deployment set VALID=false
@@ -10,6 +13,8 @@ if %VALID%==false (
   echo.
   goto exit
 )
+
+:: Check that the git base URL and repo name to add were specified as parameters
 
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
@@ -24,6 +29,13 @@ if %VALID%==false (
 	goto exit
 )
 
+:: Read in the new repo into the current repo using subtree merging
+
+echo.
+echo ------------------------------------------------------
+echo Adding %1
+echo ------------------------------------------------------
+echo.
 
 call git remote add %2 %1%2.git
 call git fetch %2

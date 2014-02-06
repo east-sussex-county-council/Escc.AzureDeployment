@@ -1,5 +1,21 @@
 @echo off
 
+:: Check that this script is being run from the root of the deployment repository.
+:: Exit if not, as we don't want to run these git commands anywhere else.
+
+set VALID=true
+if not exist .git set VALID=false
+if not exist .deployment set VALID=false
+
+if %VALID%==false (
+  echo.
+  echo This command must be run from the root of your deployment repository.
+  echo.
+  goto exit
+)
+
+:: Check that the git base URL is specified as a parameter
+
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
 
@@ -12,21 +28,24 @@ if %VALID%==false (
 	goto exit
 )
 
-
 :: Get the current folder to come back to, and the script folder, even 
 :: if executed from elsewhere, so we can call other scripts
 
 set UPDATE_ALL_START_PATH=%cd% 
 for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 
-
 :: Switch to the script folder, run git pull to ensure the scripts are up-to-date,
 :: then switch back to update the deployment repo
+
+echo.
+echo ------------------------------------------------------
+echo Ensuring deployment scripts are up-to-date
+echo ------------------------------------------------------
+echo.
 
 cd /d %ESCC_DEPLOYMENT_SCRIPTS%
 call git pull origin master
 cd /d %UPDATE_ALL_START_PATH%
-
 
 :: Now that we have the latest scripts, update the deployment repo
 

@@ -1,5 +1,7 @@
 @echo off
 
+:: Ensure git base URL is specified as a parameter
+
 set VALID=true
 if String.Empty%1==String.Empty set VALID=false
 
@@ -12,12 +14,22 @@ if %VALID%==false (
 	goto exit
 )
 
-
 :: Get the script folder, even if executed from elsewhere, so we can call other scripts
 
 for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 
+:: Pull from Azure to make sure the deployment repo is in sync
+echo.
+echo ------------------------------------------------------
+echo Syncing deployment repo with Azure
+echo ------------------------------------------------------
+echo.
+
+call git pull azure master
+
 :: Add or update all the apps which are currently part of the website
+::
+:: eg call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.ExampleApplication
 
 call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.EastSussexGovUK.AzureDeployment
 call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 SeparateRepo
@@ -34,5 +46,10 @@ call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2
 
 :: Update the Kudu deployment script in case its source files have changed
 
+echo.
+echo ------------------------------------------------------
+echo Updating custom Kudu deployment script
+echo ------------------------------------------------------
+echo.
 type %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduHeader.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduApplications.cmd %ESCC_DEPLOYMENT_SCRIPTS%AzureKuduFooter.cmd > AzureKuduDeploy.cmd
 call git commit AzureKuduDeploy.cmd -m "Update Kudu deployment script"
