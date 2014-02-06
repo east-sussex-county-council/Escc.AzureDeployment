@@ -25,6 +25,6 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\Sync" WebApplication2
 IF !ERRORLEVEL! NEQ 0 goto error
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\TransformConfig WebApplication2
+call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\TransformConfig" WebApplication2
   IF !ERRORLEVEL! NEQ 0 goto error
 )
