@@ -5,6 +5,12 @@ if String.Empty%1==String.Empty (
 	goto exit
 )
 
+echo.
+echo ------------------------------------------------------
+echo Testing %1
+echo ------------------------------------------------------
+echo.
+
 call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\packages\NUnit.Runners.2.6.3\tools\nunit-console" %1 /config=Release /framework=net-4.5
 
 :exit

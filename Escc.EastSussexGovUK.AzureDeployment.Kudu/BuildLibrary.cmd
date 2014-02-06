@@ -6,7 +6,10 @@ if String.Empty%1==String.Empty (
 )
 
 echo.
-echo Building %1...
+echo ------------------------------------------------------
+echo Building %1
+echo ------------------------------------------------------
+echo.
 
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   %MSBUILD_PATH% %1 /nologo /verbosity:m /t:Build /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\.\\" %SCM_BUILD_ARGS%

@@ -6,7 +6,10 @@ if String.Empty%1==String.Empty (
 )
 
 echo.
-echo Restoring NuGet packages for %1...
+echo ------------------------------------------------------
+echo Restoring NuGet packages for %1
+echo ------------------------------------------------------
+echo.
 
 IF /I "%1" NEQ "" (
   call "%NUGET_EXE%" restore %1

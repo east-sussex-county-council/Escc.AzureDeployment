@@ -5,6 +5,12 @@ if String.Empty%1==String.Empty (
 	goto exit
 )
 
+echo.
+echo ------------------------------------------------------
+echo Syncing %1
+echo ------------------------------------------------------
+echo.
+
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   call %KUDU_SYNC_CMD% -v 50 -f "%DEPLOYMENT_TEMP%" -t "%DEPLOYMENT_TARGET%\%1" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
 )
