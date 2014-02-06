@@ -9,6 +9,10 @@ We then push the repository to Azure, where it is deployed by [Kudu](https://git
 
 Our custom deployment script [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/) and manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore).
 
+We strong name our assemblies uploading our key file to Azure and creating an `SCM_BUILD_ARGS` app setting on the Configure page in the management portal for the Azure Website. The app setting value looks like this:
+
+ `/p:SignAssembly=true /p:AssemblyOriginatorKeyFile="<path-to-key.snk>"`
+
 Set up your deployment repository
 ---------------------------------
 
