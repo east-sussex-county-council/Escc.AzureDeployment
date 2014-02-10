@@ -11,8 +11,8 @@ echo Transforming %1\web.config.example
 echo ------------------------------------------------------
 echo.
 
-if exist "%DEPLOYMENT_SOURCE%\%1\web.config.example" (
-  "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\bin\Release\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform.exe" "%DEPLOYMENT_SOURCE%\%1\web.config.example" "%DEPLOYMENT_TARGET%\%1\web.config"
+if exist "%DEPLOYMENT_SOURCE%\%1\web.config.example" (                                 
+  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\TransformWebConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1\web.config.example" /p:TransformFile="%DEPLOYMENT_CONFIG_TRANSFORMS%\%1\Web.config.Release" /p:TransformOutputFile="%DEPLOYMENT_TARGET%\%1\web.config"
 )
 
 :exit
