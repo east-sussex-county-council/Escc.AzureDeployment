@@ -7,7 +7,7 @@ Each application on the website has a separate git repository, but each Azure We
 
 We then push the repository to Azure, where it is deployed by [Kudu](https://github.com/projectkudu/kudu). By default Kudu deploys only the first project it finds, so we use a [custom deployment script](http://blog.amitapple.com/post/38419111245/azurewebsitecustomdeploymentpart3) to deploy each project to a specific folder.
 
-Our custom deployment script [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/) and manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore).
+Our custom deployment script [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/), manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore) and restores secrets using [web.config transforms](http://msdn.microsoft.com/en-us/library/dd465326.aspx).
 
 ### Strong named assemblies
 
@@ -18,6 +18,12 @@ We give some of our assemblies a strong name, but the path to the strong name ke
 * a copy of [msxsl](http://www.microsoft.com/en-gb/download/details.aspx?id=21714) to apply the transform to each `.csproj` file before building it 
 
 We then put the path to that directory into a `STRONG_NAME_PATH` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
+
+### Configuration settings
+
+For each `web.config` file we exclude it from our git repository, and instead commit a `web.config.example` file with secrets removed. This file typically needs to be different in the live environment, so we upload a [web.config transform](http://msdn.microsoft.com/en-us/library/dd465326.aspx) on to a directory on Azure.
+
+We then put the path to that directory into a `DEPLOYMENT_CONFIG_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
 Set up your deployment repository
 ---------------------------------
