@@ -59,13 +59,10 @@ IF NOT DEFINED MSBUILD_PATH (
   SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 )
 
-:: Download test runner and build config transform app
+:: Download test runner
 
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\NugetRestore" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.sln"
-IF !ERRORLEVEL! NEQ 0 goto error
-
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\BuildLibrary" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform\Escc.EastSussexGovUK.AzureDeployment.ConfigTransform.csproj"
 IF !ERRORLEVEL! NEQ 0 goto error
 
