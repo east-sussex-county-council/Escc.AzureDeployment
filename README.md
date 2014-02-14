@@ -26,7 +26,7 @@ Clone this repository, then open a command line in a new, empty directory where 
 
 `<path to this repository>\SetupDeploymentRepo <git base URL>`
 
-`<git base url>` is a URL such as `https://github.com/east-sussex-county-council/` to which we can add a project name followed by `.git` to get a full repository URL.
+`<git base url>` is a URL such as `https://github.com/east-sussex-county-council/` to which we can add a project name to get a full repository URL.
 
 This will create a new git repository which includes every application on the East Sussex County Council website. You can then set up the Azure Website as a remote for that repository and push to it.
 
