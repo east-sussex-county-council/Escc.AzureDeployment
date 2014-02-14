@@ -43,6 +43,10 @@ call git checkout -b %2 %2/master
 call git checkout master
 call git read-tree --prefix=%2/ -u %2
 call git commit -m "Added %2"
+if %ERRORLEVEL%==0 (
+  if ("%DEPLOYMENT_COMMIT_MESSAGE%" neq "") set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%, 
+  set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Added %2
+)
 
 :exit
 exit /b %ERRORLEVEL%

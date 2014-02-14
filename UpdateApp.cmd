@@ -16,7 +16,7 @@ if %VALID%==false (
 
 :: Check that the git repo name to update is specified as a parameter
 
-if String.Empty%1==String.Empty (
+if "%1"=="" (
 	echo Usage: UpdateApp ^<git repo name^>
 	goto exit
 )
@@ -32,6 +32,10 @@ call git pull
 call git checkout master
 call git merge --squash -s subtree --no-commit %1
 call git commit -m "Updated %1"
+if %ERRORLEVEL%==0 (
+  if ("%DEPLOYMENT_COMMIT_MESSAGE%" neq "") set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%, 
+  set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated %1
+)
 
 :exit
 exit /b %ERRORLEVEL%
