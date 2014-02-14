@@ -11,7 +11,7 @@ echo Building %1
 echo ------------------------------------------------------
 echo.
 
-%MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\TransformStrongName.xml" /p:ProjectFile=%1 /p:TransformFile="%ESCC_DEPLOYMENT_SCRIPTS%\Escc.AzureDeployment.Kudu\TransformStrongName.xslt" /p:StrongNamePath="%DEPLOYMENT_STRONG_NAME_KEY%"
+%MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\TransformStrongName.xml" /p:ProjectFile=%1 /p:TransformFile="%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\TransformStrongName.xslt" /p:StrongNamePath="%DEPLOYMENT_STRONG_NAME_KEY%"
 
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   %MSBUILD_PATH% %1 /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\.\\" %SCM_BUILD_ARGS%
