@@ -4,15 +4,18 @@
     xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
     xmlns:msbuild="http://schemas.microsoft.com/developer/msbuild/2003"
 >
-    <xsl:output method="xml" indent="yes"/>
-  
-    <xsl:template match="@* | node()">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
-    </xsl:template>
+  <xsl:output method="xml" indent="yes"/>
+  <xsl:param name="StrongNamePath" />
+
+  <xsl:template match="@* | node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()"/>
+    </xsl:copy>
+  </xsl:template>
 
   <xsl:template match="msbuild:Project/msbuild:PropertyGroup/msbuild:AssemblyOriginatorKeyFile">
-    <AssemblyOriginatorKeyFile>path to .snk file on Azure</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+      <xsl:value-of select="$StrongNamePath"/>
+    </AssemblyOriginatorKeyFile>
   </xsl:template>
 </xsl:stylesheet>

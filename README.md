@@ -11,13 +11,7 @@ Our custom deployment script [runs unit tests before deployment](http://channel9
 
 ### Strong named assemblies
 
-We give some of our assemblies a strong name, but the path to the strong name key file needs to be different on Azure. We upload three files to a directory on Azure:
-
-* our key file
-* a copy of `replace-strong-name.xslt.example` containing the real path to the key file
-* a copy of [msxsl](http://www.microsoft.com/en-gb/download/details.aspx?id=21714) to apply the transform to each `.csproj` file before building it 
-
-We then put the path to that directory into a `STRONG_NAME_PATH` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
+We give some of our assemblies a strong name, but the path to the strong name key file needs to be different on Azure. We upload our key file to a directory on Azure and put the path into a `STRONG_NAME_PATH` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
 ### Configuration settings
 

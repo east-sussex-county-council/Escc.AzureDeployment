@@ -11,7 +11,7 @@ echo Building %1
 echo ------------------------------------------------------
 echo.
 
-"%STRONG_NAME_PATH%\msxsl" %1 "%STRONG_NAME_PATH%\replace-strong-name.xslt" -o %1
+%MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\TransformStrongName.xml" /p:TransformInputFile=%1 /p:TransformFile="%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\TransformStrongName.xslt" /p:TransformOutputFile=%1 /p:StrongNamePath="%STRONG_NAME_PATH%"
 
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   %MSBUILD_PATH% %1 /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\.\\" %SCM_BUILD_ARGS%
