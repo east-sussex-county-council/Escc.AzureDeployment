@@ -61,8 +61,8 @@ IF NOT DEFINED MSBUILD_PATH (
 
 :: Download test runner
 
-set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment
+set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\NugetRestore" "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.AzureDeployment.sln"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Escc.AzureDeployment.sln"
 IF !ERRORLEVEL! NEQ 0 goto error
 

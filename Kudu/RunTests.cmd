@@ -5,7 +5,7 @@ if String.Empty%1==String.Empty (
 	goto exit
 )
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\BuildLibrary" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.csproj"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildLibrary" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.csproj"
 IF !ERRORLEVEL! NEQ 0 goto exit
 
 echo.
