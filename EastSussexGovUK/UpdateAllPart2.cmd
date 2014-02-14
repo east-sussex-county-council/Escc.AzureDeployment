@@ -16,8 +16,8 @@ if %VALID%==false (
 
 :: Get the script folder, even if executed from elsewhere, so we can call other scripts
 
-for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
-set ESCC_DEPLOYMENT_SCRIPTS=%ESCC_DEPLOYMENT_SCRIPTS%..\
+for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS_THIS_SITE=%%~dpi
+set ESCC_DEPLOYMENT_SCRIPTS=%ESCC_DEPLOYMENT_SCRIPTS_THIS_SITE%..\
 
 :: Pull from Azure to make sure the deployment repo is in sync
 :: %2 should always be blank unless this script is called by SetupDeploymentRepo.cmd, when it should be 'false'
@@ -60,7 +60,7 @@ echo ------------------------------------------------------
 echo Updating custom Kudu deployment script
 echo ------------------------------------------------------
 echo.
-type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
+type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS_THIS_SITE%DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
 call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
 if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
 
