@@ -30,9 +30,11 @@ Set up your deployment repository
 
 Clone this repository, then open a command line in a new, empty directory where you want to create the deployment repository:
 
-`<path to this repository>\SetupDeploymentRepo <git base URL>`
+`<path to this repository>\SetupDeploymentRepo <git base URL>` `<site scripts folder>`
 
 `<git base url>` is a URL such as `https://github.com/east-sussex-county-council/` to which we can add a project name to get a full repository URL.
+
+`<site scripts folder>` is the name of a sub-folder of this repository containing the scripts for the site to set up.
 
 This will create a new git repository which includes every application on the East Sussex County Council website. You can then set up the Azure Website as a remote for that repository and push to it.
 
@@ -53,9 +55,9 @@ Note that you can't run the script from the copy of `Escc.AzureDeployment` which
 
 ### A shortcut
 
-You can make it easier to update your repository by creating a batch file somewhere in your path with the following line. Replace `<path to this repository>` and `<git base URL>` with the correct values for your environment.
+You can make it easier to update your repository by creating a batch file somewhere in your path with the following line. Replace `<path to this repository>`, `<git base URL>` and `<site scripts folder>` with the correct values for your environment.
 
-`@<path to this repository>\UpdateAll <git base URL>`
+`@<path to this repository>\UpdateAll <git base URL>` `<site scripts folder>`
 
 You can then simply type `UpdateAll` in the root directory of your deployment repository.
 

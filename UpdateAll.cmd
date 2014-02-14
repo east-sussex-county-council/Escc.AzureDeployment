@@ -14,19 +14,20 @@ if %VALID%==false (
   goto exit
 )
 
-:: Check that the git base URL is specified as a parameter.
+:: Check that the git base URL and site scripts folder are specified as parameters.
 ::
-:: There is a second parameter which is optional, and only needed by SetupDeploymentRepo.cmd, 
+:: There is a third parameter which is optional, and only needed by SetupDeploymentRepo.cmd, 
 :: so don't document it for the user.
 
 set VALID=true
 if "%1"=="" set VALID=false
+if "%2"=="" set VALID=false
 
 if %VALID%==false (
 	echo.
-	echo Usage: UpdateAll ^<git base URL^> 
+	echo Usage: UpdateAll ^<git base URL^> ^<site scripts folder^> 
 	echo.
-	echo eg UpdateAll http://github.com/east-sussex-county-council/
+	echo eg UpdateAll http://github.com/east-sussex-county-council/ EastSussexGovUK
 	echo.
 	goto exit
 )
@@ -52,7 +53,7 @@ cd /d %UPDATE_ALL_START_PATH%
 
 :: Now that we have the latest scripts, update the deployment repo
 
-call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAllPart2 %1 %2
+call %ESCC_DEPLOYMENT_SCRIPTS%%2\UpdateAllPart2 %1 %3
 
 :exit
 exit /b 

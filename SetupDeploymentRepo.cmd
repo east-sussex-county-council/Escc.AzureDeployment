@@ -11,16 +11,17 @@ if %VALID%==false (
   goto exit
 )
 
-:: Check that a git base URL has been specified as a parameter
+:: Check that a git base URL and site scripts folders have been specified as parameters
 
 set VALID=true
-if String.Empty%1==String.Empty set VALID=false
+if "%1"=="" set VALID=false
+if "%2"=="" set VALID=false
 
 if %VALID%==false (
 	echo.
-	echo Usage: SetupDeploymentRepo ^<git base URL^>
+	echo Usage: SetupDeploymentRepo ^<git base URL^> ^<site scripts folder^>
 	echo.
-	echo eg SetupDeploymentRepo http://github.com/east-sussex-county-council/
+	echo eg SetupDeploymentRepo http://github.com/east-sussex-county-council/ EastSussexGovUK
 	echo.
 	goto exit
 )
@@ -57,7 +58,7 @@ call git commit -m "Configure Kudu deployment script"
 :: Pull in the applications to deploy as git subtrees.
 :: The 'false' parameter prevents syncing with Azure as the git remote won't be setup yet.
 
-call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %1 false
+call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %1 %2 false
 
 echo.
 echo -------------------------------------------------------------------------
