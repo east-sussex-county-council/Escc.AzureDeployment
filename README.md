@@ -1,5 +1,5 @@
-Escc.EastSussexGovUK.AzureDeployment
-====================================
+Escc.AzureDeployment
+====================
 
 The East Sussex County Council website is hosted on [Azure Websites](www.windowsazure.com) and deployed using git.
 
@@ -49,7 +49,7 @@ or, if you're sure only one application has changed, you can run this command:
 
 You can then push the deployment repository to Azure.
 
-Note that you can't run the script from the copy of `Escc.EastSussexGovUK.AzureDeployment` which exists inside your deployment repository, because the process involves switching to branches where those scripts are not available.
+Note that you can't run the script from the copy of `Escc.AzureDeployment` which exists inside your deployment repository, because the process involves switching to branches where those scripts are not available.
 
 ### A shortcut
 
@@ -63,7 +63,7 @@ You can then simply type `UpdateAll` in the root directory of your deployment re
 Deploy a new application
 ------------------------
 
-If you've created a new application for the website, you need to modify `UpdateAllPart2.cmd` and `AzureKuduApplications.cmd` to include your application repository.
+If you've created a new application for the website, you need to modify `UpdateAllPart2.cmd` and `DeployPart2.cmd` to include your application repository.
 
 Commit and push the updated scripts, then follow the steps under 'Update your deployment repository'.
 
@@ -72,7 +72,7 @@ Delete an obsolete application
 
 Follow these steps to completely remove an application from the website:
 
-1.	Remove references to the application from `AzureKuduApplications.cmd` in this repository, and move it from the 'Add or update' to the 'Delete' section of `UpdateAllPart2.cmd`. Commit and push your changes.
+1.	Remove references to the application from `DeployPart2.cmd` in this repository, and move it from the 'Add or update' to the 'Delete' section of `UpdateAllPart2.cmd`. Commit and push your changes.
 2.	Update your deployment repository using `UpdateAll` as described in 'Update your deployment repository' above.
 3.	Use FTP to connect to Azure and delete the application folder.
 4.	Delete any related resources such as databases and storage containers.

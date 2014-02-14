@@ -5,7 +5,7 @@ if String.Empty%1==String.Empty (
 	goto exit
 )
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\Escc.EastSussexGovUK.AzureDeployment.Kudu\BuildLibrary" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.csproj"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\Kudu\BuildLibrary" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.csproj"
 IF !ERRORLEVEL! NEQ 0 goto exit
 
 echo.
@@ -14,7 +14,7 @@ echo Running tests for %1
 echo ------------------------------------------------------
 echo.
 
-call "%DEPLOYMENT_SOURCE%\Escc.EastSussexGovUK.AzureDeployment\packages\NUnit.Runners.2.6.3\tools\nunit-console" %1 /config=Release /framework=net-4.5
+call "%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\packages\NUnit.Runners.2.6.3\tools\nunit-console" %1 /config=Release /framework=net-4.5
 
 :exit
 exit /b %ERRORLEVEL%
