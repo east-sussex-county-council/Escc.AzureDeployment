@@ -25,6 +25,11 @@
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformWebConfig" ExampleProject
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
+::
+:: To encrypt web.config sections other that appSettings and connectionStrings, which are done by TransformWebConfig:
+::
+::     aspnet_regiis -pef myConfigSection ""%DEPLOYMENT_TARGET%\ExampleProject"
+::
 :: -----------------------------------------------
 
 
