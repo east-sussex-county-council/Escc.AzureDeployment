@@ -65,7 +65,7 @@ You can then simply type `UpdateAll` in the root directory of your deployment re
 Deploy a new application
 ------------------------
 
-If you've created a new application for the website, you need to modify `UpdateAllPart2.cmd` and `DeployPart2.cmd` to include your application repository.
+If you've created a new application for the website, you need to modify `UpdateDeploymentRepo.cmd` and `DeployOnAzure.cmd` to include your application repository.
 
 Commit and push the updated scripts, then follow the steps under 'Update your deployment repository'.
 
@@ -74,7 +74,7 @@ Delete an obsolete application
 
 Follow these steps to completely remove an application from the website:
 
-1.	Remove references to the application from `DeployPart2.cmd` in this repository, and move it from the 'Add or update' to the 'Delete' section of `UpdateAllPart2.cmd`. Commit and push your changes.
+1.	Remove references to the application from `DeployOnAzure.cmd` in this repository, and move it from the 'Add or update' to the 'Delete' section of `UpdateDeploymentRepo.cmd`. Commit and push your changes.
 2.	Update your deployment repository using `UpdateAll` as described in 'Update your deployment repository' above.
 3.	Use FTP to connect to Azure and delete the application folder.
 4.	Delete any related resources such as databases and storage containers.

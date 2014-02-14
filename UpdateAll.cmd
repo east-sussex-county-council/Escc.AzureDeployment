@@ -70,7 +70,7 @@ if "%3"=="" (
 set DEPLOYMENT_COMMIT_MESSAGE=
 
 :: Update the specific apps for this site
-call %ESCC_DEPLOYMENT_SCRIPTS%%2\UpdateAllPart2 %1
+call %ESCC_DEPLOYMENT_SCRIPTS%%2\UpdateDeploymentRepo %1
 
 
 :: Update the Kudu deployment script in case its source files have changed.
@@ -81,7 +81,7 @@ echo ------------------------------------------------------
 echo Updating custom Kudu deployment script
 echo ------------------------------------------------------
 echo.
-type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%%2\DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
+type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%%2\DeployOnAzure.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
 call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
 if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
 
