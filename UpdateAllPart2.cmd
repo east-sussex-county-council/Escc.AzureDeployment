@@ -59,7 +59,7 @@ echo ------------------------------------------------------
 echo Updating custom Kudu deployment script
 echo ------------------------------------------------------
 echo.
-type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%Escc.AzureDeployment.Kudu\DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Escc.AzureDeployment.Kudu\DeployPart3.cmd > KuduDeploy.cmd
+type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
 call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
 if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
 
