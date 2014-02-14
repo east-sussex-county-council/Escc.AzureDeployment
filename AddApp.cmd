@@ -42,7 +42,7 @@ call git fetch %2
 call git checkout -b %2 %2/master
 call git checkout master
 call git read-tree --prefix=%2/ -u %2
-call git commit -m "Added %2 as subtree"
+call git commit -m "Added %2"
 
 :exit
 exit /b %ERRORLEVEL%
