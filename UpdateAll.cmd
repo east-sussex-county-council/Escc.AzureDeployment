@@ -53,7 +53,47 @@ cd /d %UPDATE_ALL_START_PATH%
 
 :: Now that we have the latest scripts, update the deployment repo
 
-call %ESCC_DEPLOYMENT_SCRIPTS%%2\UpdateAllPart2 %1 %3
+:: Pull from Azure to make sure the deployment repo is in sync
+:: %3 should always be blank unless this script is called by SetupDeploymentRepo.cmd, when it should be 'false'
+
+if "%3"=="" (
+  echo.
+  echo ------------------------------------------------------
+  echo Syncing deployment repo with Azure
+  echo ------------------------------------------------------
+  echo.
+
+  call git pull azure master
+)
+
+:: Reset commit message
+set DEPLOYMENT_COMMIT_MESSAGE=
+
+:: Update the specific apps for this site
+call %ESCC_DEPLOYMENT_SCRIPTS%%2\UpdateAllPart2 %1
+
+
+:: Update the Kudu deployment script in case its source files have changed.
+:: Combine 3 files because we want to autogenerate the second one at some point.
+
+echo.
+echo ------------------------------------------------------
+echo Updating custom Kudu deployment script
+echo ------------------------------------------------------
+echo.
+type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%%2\DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
+call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
+if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
+
+:: If anything was updated, force another commit so we can control the message displayed 
+:: in the Azure deployments list.
+if "%DEPLOYMENT_COMMIT_MESSAGE%" neq "" (
+  echo. >> KuduDeploy.cmd
+  call git commit KuduDeploy.cmd -m "%DEPLOYMENT_COMMIT_MESSAGE%"
+)
 
 :exit
+:: Reset commit message
+set DEPLOYMENT_COMMIT_MESSAGE=
+
 exit /b 

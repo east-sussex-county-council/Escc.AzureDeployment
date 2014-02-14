@@ -14,27 +14,6 @@ if %VALID%==false (
 	goto exit
 )
 
-:: Get the script folder, even if executed from elsewhere, so we can call other scripts
-
-for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS_THIS_SITE=%%~dpi
-set ESCC_DEPLOYMENT_SCRIPTS=%ESCC_DEPLOYMENT_SCRIPTS_THIS_SITE%..\
-
-:: Pull from Azure to make sure the deployment repo is in sync
-:: %2 should always be blank unless this script is called by SetupDeploymentRepo.cmd, when it should be 'false'
-
-if "%2"=="" (
-  echo.
-  echo ------------------------------------------------------
-  echo Syncing deployment repo with Azure
-  echo ------------------------------------------------------
-  echo.
-
-  call git pull azure master
-)
-
-:: Reset commit message
-set DEPLOYMENT_COMMIT_MESSAGE=
-
 :: Add or update all the apps which are currently part of the website
 ::
 :: eg call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.ExampleApplication
@@ -52,28 +31,5 @@ call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2
 
 
 
-:: Update the Kudu deployment script in case its source files have changed.
-:: Combine 3 files because we want to autogenerate the second one at some point.
-
-echo.
-echo ------------------------------------------------------
-echo Updating custom Kudu deployment script
-echo ------------------------------------------------------
-echo.
-type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS_THIS_SITE%DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd > KuduDeploy.cmd
-call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
-if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
-
-:: If anything was updated, force another commit so we can control the message displayed 
-:: in the Azure deployments list.
-if "%DEPLOYMENT_COMMIT_MESSAGE%" neq "" (
-  echo. >> KuduDeploy.cmd
-  call git commit KuduDeploy.cmd -m "%DEPLOYMENT_COMMIT_MESSAGE%"
-)
-
 :exit
-
-:: Reset commit message
-set DEPLOYMENT_COMMIT_MESSAGE=
-
 exit /b %ERRORLEVEL%
