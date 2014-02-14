@@ -32,10 +32,7 @@ call git pull
 call git checkout master
 call git merge --squash -s subtree --no-commit %1
 call git commit -m "Updated %1"
-if %ERRORLEVEL%==0 (
-  if "%DEPLOYMENT_COMMIT_MESSAGE%" neq "" set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%, 
-  set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated %1
-)
+if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated %1. 
 
 :exit
 exit /b %ERRORLEVEL%

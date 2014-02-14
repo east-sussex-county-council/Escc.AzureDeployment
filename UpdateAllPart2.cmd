@@ -61,10 +61,7 @@ echo ------------------------------------------------------
 echo.
 type %ESCC_DEPLOYMENT_SCRIPTS%Escc.EastSussexGovUK.AzureDeployment.Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%Escc.EastSussexGovUK.AzureDeployment.Kudu\DeployPart2.cmd %ESCC_DEPLOYMENT_SCRIPTS%Escc.EastSussexGovUK.AzureDeployment.Kudu\DeployPart3.cmd > KuduDeploy.cmd
 call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
-if %ERRORLEVEL%==0 (
-  if "%DEPLOYMENT_COMMIT_MESSAGE%" neq "" set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%, 
-  set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script
-)
+if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
 
 :: If anything was updated, force another commit so we can control the message displayed 
 :: in the Azure deployments list.
