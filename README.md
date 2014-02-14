@@ -7,11 +7,17 @@ Each application on the website has a separate git repository, but each Azure We
 
 We then push the repository to Azure, where it is deployed by [Kudu](https://github.com/projectkudu/kudu). By default Kudu deploys only the first project it finds, so we use a [custom deployment script](http://blog.amitapple.com/post/38419111245/azurewebsitecustomdeploymentpart3) to deploy each project to a specific folder.
 
-Our custom deployment script [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/), manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore) and restores secrets using [web.config transforms](http://msdn.microsoft.com/en-us/library/dd465326.aspx).
+Our custom deployment script:
+
+* [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/)
+* manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore)
+* signs assemblies using MSBuild and XSL to point to our strong name key
+* manages secrets using [web.config transforms](http://msdn.microsoft.com/en-us/library/dd465326.aspx)
+* encrypts `appSettings` and `connectionStrings` in `web.config` using [aspnet_regiis](http://msdn.microsoft.com/en-us/library/ff647398.aspx).
 
 ### Strong named assemblies
 
-We give some of our assemblies a strong name, but the path to the strong name key file needs to be different on Azure. We upload our key file to a directory on Azure and put the path into a `STRONG_NAME_PATH` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
+We give some of our assemblies a strong name, but the path to the strong name key file needs to be different on Azure. We upload our key file to a directory on Azure and put the path into a `DEPLOYMENT_STRONG_NAME_KEY` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
 ### Configuration settings
 
