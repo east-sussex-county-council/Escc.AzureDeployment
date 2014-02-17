@@ -27,7 +27,7 @@ if %VALID%==false (
 	echo.
 	echo Usage: UpdateAll ^<git base URL^> ^<site scripts folder^> 
 	echo.
-	echo eg UpdateAll http://github.com/east-sussex-county-council/ EastSussexGovUK
+	echo eg UpdateAll http://github.com/east-sussex-county-council/ ExampleSite
 	echo.
 	goto exit
 )
@@ -74,7 +74,7 @@ call %ESCC_DEPLOYMENT_SCRIPTS%%2\UpdateDeploymentRepo %1
 
 
 :: Update the Kudu deployment script in case its source files have changed.
-:: Combine 3 files because we want to autogenerate the second one at some point.
+:: Combine 3 files to separate out the part of the script unique to each site.
 
 echo.
 echo ------------------------------------------------------

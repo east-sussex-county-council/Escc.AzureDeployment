@@ -1,9 +1,9 @@
 Escc.AzureDeployment
 ====================
 
-The East Sussex County Council website is hosted on [Azure Websites](www.windowsazure.com) and deployed using git.
+This is a scripted deployment process for websites hosted on [Azure Websites](www.windowsazure.com) and deployed using git. We use it for [the East Sussex County Council website](https://www.eastsussex.gov.uk).
 
-Each application on the website has a separate git repository, but each Azure Website has a single git repository, so we have to combine our projects into a single git repository for deployment. We do this using [subtree merging](http://typecastexception.com/post/2013/03/16/Managing-Nested-Libraries-Using-the-GIT-Subtree-Merge-Workflow.aspx).
+Each application on a large website has a separate git repository, but each Azure Website has a single git repository, so we have to combine our projects into a single git repository for deployment. We do this using [subtree merging](http://typecastexception.com/post/2013/03/16/Managing-Nested-Libraries-Using-the-GIT-Subtree-Merge-Workflow.aspx).
 
 We then push the repository to Azure, where it is deployed by [Kudu](https://github.com/projectkudu/kudu). By default Kudu deploys only the first project it finds, so we use a [custom deployment script](http://blog.amitapple.com/post/38419111245/azurewebsitecustomdeploymentpart3) to deploy each project to a specific folder.
 
@@ -36,7 +36,7 @@ Clone this repository, then open a command line in a new, empty directory where 
 
 `<site scripts folder>` is the name of a sub-folder of this repository containing the scripts for the site to set up.
 
-This will create a new git repository which includes every application on the East Sussex County Council website. You can then set up the Azure Website as a remote for that repository and push to it.
+This will create a new git repository which includes every application from all the separate repositories which make up the website. You can then set up the Azure Website as a remote for that repository and push to it.
 
 Update your deployment repository
 ---------------------------------

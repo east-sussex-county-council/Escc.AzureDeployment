@@ -16,7 +16,7 @@ if %VALID%==false (
 
 :: Check that the git repo name to delete was specified as a parameter
 
-if String.Empty%1==String.Empty (
+if "%1"=="" (
 	echo Usage: DeleteApp ^<git repo name^>
 	goto exit
 )

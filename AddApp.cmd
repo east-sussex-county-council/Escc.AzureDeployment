@@ -17,14 +17,14 @@ if %VALID%==false (
 :: Check that the git base URL and repo name to add were specified as parameters
 
 set VALID=true
-if String.Empty%1==String.Empty set VALID=false
-if String.Empty%2==String.Empty set VALID=false
+if "%1"=="" set VALID=false
+if "%2"=="" set VALID=false
 
 if %VALID%==false (
 	echo.
 	echo Usage: AddApp ^<git base URL^> ^<git repo name^>
 	echo.
-	echo eg AddApp http://github.com/east-sussex-county-council/ Escc.ExampleRepo
+	echo eg AddApp http://github.com/east-sussex-county-council/ ExampleProject
 	echo. 
 	goto exit
 )

@@ -21,7 +21,7 @@ if %VALID%==false (
 	echo.
 	echo Usage: SetupDeploymentRepo ^<git base URL^> ^<site scripts folder^>
 	echo.
-	echo eg SetupDeploymentRepo http://github.com/east-sussex-county-council/ EastSussexGovUK
+	echo eg SetupDeploymentRepo http://github.com/east-sussex-county-council/ ExampleSite
 	echo.
 	goto exit
 )

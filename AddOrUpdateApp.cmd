@@ -24,7 +24,7 @@ if %VALID%==false (
 	echo.
 	echo Usage: AddOrUpdateApp ^<git base URL^> ^<git repo name^>
 	echo.
-	echo eg AddOrUpdateApp https://github.com/east-sussex-county-council/ Escc.ExampleRepo
+	echo eg AddOrUpdateApp https://github.com/east-sussex-county-council/ ExampleProject
 	echo. 
 	goto exit
 )

@@ -14,7 +14,8 @@ if %VALID%==false (
 	goto exit
 )
 
-:: Add or update all the apps which are currently part of the website
+:: Add or update all the apps which are currently part of the website. 
+:: Always start by including the Escc.AzureDeployment applciation.
 ::
 :: eg call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.ExampleApplication
 

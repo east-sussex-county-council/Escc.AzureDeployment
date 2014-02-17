@@ -1,6 +1,6 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
-if String.Empty%1==String.Empty (
+if "%1"=="" (
 	echo Usage: Sync ^<relative path to deployment folder^>
 	goto exit
 )
