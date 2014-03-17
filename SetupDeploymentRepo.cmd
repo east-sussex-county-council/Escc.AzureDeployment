@@ -68,7 +68,7 @@ echo -------------------------------------------------------------------------
 echo Deployment repository created. 
 echo.
 echo Next, set up a git remote called 'azure' with the URL of your Azure 
-echo website's git repository. You can find the URL on echo the Deployments 
+echo website's git repository. You can find the URL on the Deployments 
 echo page for your website in the Azure portal.
 echo -------------------------------------------------------------------------
 echo.
