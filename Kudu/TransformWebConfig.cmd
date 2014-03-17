@@ -7,12 +7,12 @@ if String.Empty%1==String.Empty (
 
 echo.
 echo ------------------------------------------------------
-echo Transforming %1\web.config.example
+echo Transforming %1\web.example.config
 echo ------------------------------------------------------
 echo.
 
-if exist "%DEPLOYMENT_SOURCE%\%1\web.config.example" (                                 
-  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformWebConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1\web.config.example" /p:TransformFile="%DEPLOYMENT_CONFIG_TRANSFORMS%\%1\Web.config.Release" /p:TransformOutputFile="%DEPLOYMENT_TARGET%\%1\web.config"
+if exist "%DEPLOYMENT_SOURCE%\%1\web.example.config" (                                 
+  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformWebConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1\web.example.config" /p:TransformFile="%DEPLOYMENT_CONFIG_TRANSFORMS%\%1\Web.config.Release" /p:TransformOutputFile="%DEPLOYMENT_TARGET%\%1\web.config"
 
   aspnet_regiis -pef appSettings ""%DEPLOYMENT_TARGET%\%1"
   aspnet_regiis -pef connectionStrings ""%DEPLOYMENT_TARGET%\%1"

@@ -21,7 +21,7 @@ We give some of our assemblies a strong name, but the path to the strong name ke
 
 ### Configuration settings
 
-For each `web.config` file we exclude it from our git repository, and instead commit a `web.config.example` file with secrets removed. This file typically needs to be different in the live environment, so we upload a [web.config transform](http://msdn.microsoft.com/en-us/library/dd465326.aspx) on to a directory on Azure.
+For each `web.config` file we exclude it from our git repository, and instead commit a `web.example.config` file with secrets removed. This file typically needs to be different in the live environment, so we upload a [web.config transform](http://msdn.microsoft.com/en-us/library/dd465326.aspx) on to a directory on Azure.
 
 We then put the path to that directory into a `DEPLOYMENT_CONFIG_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
