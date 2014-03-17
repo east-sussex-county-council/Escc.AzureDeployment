@@ -23,6 +23,9 @@ if %VALID%==false (
 	echo.
 	echo eg SetupDeploymentRepo http://github.com/east-sussex-county-council/ ExampleSite
 	echo.
+	echo ExampleSite should be a sibling folder of Escc.AzureDeployment, and a git repository
+	echo when the name is appended to the git base URL.
+	echo.
 	goto exit
 )
 

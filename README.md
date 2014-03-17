@@ -25,6 +25,13 @@ For each `web.config` file we exclude it from our git repository, and instead co
 
 We then put the path to that directory into a `DEPLOYMENT_CONFIG_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
+Set up Escc.AzureDeployment for a new website
+---------------------------------------------
+
+Create a new git repository in a sibling folder of Escc.AzureDeployment. Copy the contents of the `ExampleSite` folder from this project and customise them for your site. Push the repository to source control so that the deployment scripts can update it from there.
+
+Next, set up your deployment repository as described below.
+
 Set up your deployment repository
 ---------------------------------
 
@@ -34,7 +41,7 @@ Clone this repository, then open a command line in a new, empty directory where 
 
 `<git base url>` is a URL such as `https://github.com/east-sussex-county-council/` to which we can add a project name to get a full repository URL.
 
-`<site scripts folder>` is the name of a sub-folder of this repository containing the scripts for the site to set up.
+`<site scripts folder>` is the name of the sibling folder of this repository containing the scripts for the site to set up (see above).
 
 This will create a new git repository which includes every application from all the separate repositories which make up the website. You can then set up the Azure Website as a remote for that repository and push to it.
 
