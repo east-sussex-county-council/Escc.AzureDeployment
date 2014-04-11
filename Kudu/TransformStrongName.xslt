@@ -14,8 +14,10 @@
   </xsl:template>
 
   <xsl:template match="msbuild:Project/msbuild:PropertyGroup/msbuild:AssemblyOriginatorKeyFile">
-    <AssemblyOriginatorKeyFile>
-      <xsl:value-of select="$StrongNamePath"/>
-    </AssemblyOriginatorKeyFile>
+    <!-- Output AssemblyOriginatorKeyFile element as CDATA to avoid adding msbuild namespace -->
+    <xsl:text disable-output-escaping="yes"><![CDATA[<AssemblyOriginatorKeyFile>]]></xsl:text>
+    <xsl:value-of select="$StrongNamePath"/>
+    <xsl:text disable-output-escaping="yes"><![CDATA[</AssemblyOriginatorKeyFile>]]></xsl:text>
+
   </xsl:template>
 </xsl:stylesheet>
