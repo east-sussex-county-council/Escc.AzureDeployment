@@ -11,8 +11,13 @@ echo Building %1
 echo ------------------------------------------------------
 echo.
 
-if exist "%DEPLOYMENT_STRONG_NAME_KEY%" (
-  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformStrongName.xml" /p:ProjectFile=%1 /p:TransformFile="%ESCC_DEPLOYMENT_SCRIPTS%\TransformStrongName.xslt" /p:StrongNamePath="%DEPLOYMENT_STRONG_NAME_KEY%"
+if exist "%1.xslt" (
+  for %%A in ("%1") do (
+     set PROJECT_FOLDER=%%~dpA
+  )
+  copy "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile.xslt" "%PROJECT_FOLDER%"
+ 
+  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile.xml" /p:ProjectFile=%1 /p:TransformFile="%1.xslt" /p:ReferenceDllPath="%DEPLOYMENT_TRANSFORMS%" /p:StrongNamePath="%DEPLOYMENT_STRONG_NAME_KEY%"
 )
 
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
