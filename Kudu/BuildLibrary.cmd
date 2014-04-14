@@ -11,6 +11,10 @@ echo Building %1
 echo ------------------------------------------------------
 echo.
 
+if not exist "%1.xslt" (
+  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile.xml" /p:ProjectFile=%1 /p:TransformFile="%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile.xslt" /p:StrongNamePath="%DEPLOYMENT_STRONG_NAME_KEY%"
+)
+
 if exist "%1.xslt" (
   for %%A in ("%1") do (
      set PROJECT_FOLDER=%%~dpA
