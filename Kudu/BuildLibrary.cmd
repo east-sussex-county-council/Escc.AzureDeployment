@@ -16,7 +16,7 @@ if not exist "%1.xslt" (
 )
 
 if exist "%1.xslt" (
-  for %%A in ("%1") do (
+  for %%A in (%1) do (
      set PROJECT_FOLDER=%%~dpA
   )
   echo copy "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile.xslt" "%PROJECT_FOLDER%"
