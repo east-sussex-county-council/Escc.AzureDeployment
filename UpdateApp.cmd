@@ -29,6 +29,7 @@ echo.
 
 call git checkout %1
 call git pull
+echo git pull errorlevel: %ERRORLEVEL%
 call git checkout master
 call git merge --squash -s subtree --no-commit %1
 call git commit -m "Updated %1"
