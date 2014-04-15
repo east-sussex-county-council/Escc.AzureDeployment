@@ -31,7 +31,6 @@ call git checkout %1
 call git pull | find "Already up-to-date."
 set REPO_UP_TO_DATE=%ERRORLEVEL% 
 call git checkout master
-echo REPO_UP_TO_DATE = %REPO_UP_TO_DATE%
 if %REPO_UP_TO_DATE%==1 (
   call git merge --squash -s subtree --no-commit %1
   call git commit -m "Updated %1"
