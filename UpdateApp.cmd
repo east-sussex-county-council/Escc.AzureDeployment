@@ -30,8 +30,9 @@ echo.
 call git checkout %1
 call git pull
 git pull | find "Already up-to-date."
-if %errorlevel% == 1 (
-  call git checkout master
+set REPO_UP_TO_DATE=%ERRORLEVEL% 
+call git checkout master
+if %REPO_UP_TO_DATE%==1 (
   call git merge --squash -s subtree --no-commit %1
   call git commit -m "Updated %1"
   if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated %1. 
