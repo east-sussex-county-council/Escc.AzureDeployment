@@ -16,7 +16,7 @@
 ::
 :: To build and sync an application, and merge in its Azure configuration settings:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" "%DEPLOYMENT_SOURCE%\ExampleProject\ExampleProject.csproj"
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" %DEPLOYMENT_SOURCE%\ExampleProject\ ExampleProject.csproj
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\Sync" ExampleProject
@@ -46,7 +46,7 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\WebApplication1\WebApplication1.sln"
 IF !ERRORLEVEL! NEQ 0 goto error
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" "%DEPLOYMENT_SOURCE%\WebApplication1\WebApplication1\WebApplication1.csproj"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" %DEPLOYMENT_SOURCE%\WebApplication1\WebApplication1\ WebApplication1.csproj
 IF !ERRORLEVEL! NEQ 0 goto error
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\Sync" WebApplication1
@@ -54,7 +54,7 @@ IF !ERRORLEVEL! NEQ 0 goto error
 
 :: Build and sync WebApplication2
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" "%DEPLOYMENT_SOURCE%\WebApplication2\WebApplication2.csproj"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" %DEPLOYMENT_SOURCE%\WebApplication2\ WebApplication2.csproj
 IF !ERRORLEVEL! NEQ 0 goto error
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\Sync" WebApplication2
