@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Transform" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-   <Target Name="Transform">
-     <Copy SourceFiles="$(ProjectFile)" DestinationFiles="$(ProjectFile).temp" />
-     <XslTransformation XslInputPath="$(TransformFile)" XmlInputPaths="$(ProjectFile).temp" OutputPaths="$(ProjectFile)" Parameters="&lt;Parameter Name='StrongNamePath' Value='$(StrongNamePath)'/&gt;"/>
-     <Delete Files="$(ProjectFile).temp" />
-  </Target>
-</Project>
