@@ -16,6 +16,9 @@
 ::
 :: To build and sync an application, and merge in its Azure configuration settings:
 ::
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile" %DEPLOYMENT_SOURCE%\ExampleLibrary\ ExampleLibrary.csproj
+::     IF !ERRORLEVEL! NEQ 0 goto error
+
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" %DEPLOYMENT_SOURCE%\ExampleProject\ ExampleProject.csproj
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
