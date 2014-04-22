@@ -10,7 +10,7 @@ if "%2"=="" (
 	goto exit
 )
 
-call TransformProjectFile %1 %2
+"%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile" %1 %2
 
 echo.
 echo ------------------------------------------------------
