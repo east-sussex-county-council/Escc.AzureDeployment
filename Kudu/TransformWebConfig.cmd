@@ -29,10 +29,5 @@ if not exist "%DEPLOYMENT_TRANSFORMS%\%1\Web.Release.config" (
   echo %DEPLOYMENT_TRANSFORMS%\%1\Web.Release.config not found.
 )
 
-if exist "%DEPLOYMENT_TARGET%\%1\web.config" (                                 
-  aspnet_regiis -pef appSettings "%DEPLOYMENT_TARGET%\%1"
-  aspnet_regiis -pef connectionStrings "%DEPLOYMENT_TARGET%\%1"
-)
-
 :exit
 exit /b %ERRORLEVEL%

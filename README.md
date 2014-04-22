@@ -13,7 +13,7 @@ Our custom deployment script:
 * manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore)
 * signs assemblies using MSBuild and XSL to point to our strong name key
 * manages secrets using [web.config transforms](http://msdn.microsoft.com/en-us/library/dd465326.aspx)
-* encrypts `appSettings` and `connectionStrings` in `web.config` using [aspnet_regiis](http://msdn.microsoft.com/en-us/library/ff647398.aspx).
+
 
 Combine multiple applications into a single git repository
 ---------------------------------------------------------- 
