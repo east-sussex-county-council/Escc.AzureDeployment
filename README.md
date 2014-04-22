@@ -76,7 +76,8 @@ Follow these steps to completely remove an application from the website:
 5.	On the Configure tab in the Azure Portal, remove any application settings, connection strings, virtual applications and directories associated with the application.
 6.	Set up 301 redirects to replacement content if appropriate.
 
-## Configure deployment on Azure using Kudu
+Configure deployment on Azure using Kudu
+----------------------------------------
 
 When you push your changes to Azure, Kudu will run your `DeployOnAzure.cmd` script to build and deploy your website. 
 
@@ -127,5 +128,9 @@ For each `web.config` file we exclude it from our git repository, and instead co
 We then put the path to that directory into a `DEPLOYMENT_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
 
 The folder structure mimics the repository folder structure, so to transform the `web.example.config` at the root of the `ExampleSite` folder, put the `Web.Release.config` into an `ExampleSite` folder inside `DEPLOYMENT_TRANSFORMS`. You then need to add the `TransformWebConfig` command to your `DeployOnAzure.cmd` file.
+
+    call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformWebConfig" ExampleSite
+
+If a `web.config` file is already present at the destination (for example, installed by a nuget package) then that file will be transformed by `Web.Release.config` and `web.example.config` will be ignored.
 
  
