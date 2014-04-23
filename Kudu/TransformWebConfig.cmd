@@ -13,7 +13,7 @@ echo.
 
 if exist "%DEPLOYMENT_TRANSFORMS%%1\Web.Release.config" (
 
-  if exist "%DEPLOYMENT_TARGET%\%1\web.config" (                                 
+  if exist "%DEPLOYMENT_TARGET%\%1\web.config" (
     %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformWebConfig.xml" /p:TransformInputFile="%DEPLOYMENT_TARGET%\%1\web.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1\Web.Release.config" /p:TransformOutputFile="%DEPLOYMENT_TARGET%\%1\web.config"
   )
   
@@ -23,6 +23,11 @@ if exist "%DEPLOYMENT_TRANSFORMS%%1\Web.Release.config" (
       
     )
   )      
+
+  :: Delete temp file created by transformation, because deleting it within the transformation fails due to file locking 
+  if exist "%DEPLOYMENT_TARGET%\%1\web.config.temp.config" (
+    del "%DEPLOYMENT_TARGET%\%1\web.config.temp.config" 
+  )
 )
 
 if not exist "%DEPLOYMENT_TRANSFORMS%%1\Web.Release.config" (

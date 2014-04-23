@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="TransformWebConfig" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll"/>
-  <!-- Work on a copy of the file to avoid file locking problem. Use 'web.config.temp.config' so that protected .config extension is still there. -->
+  <!-- Work on a copy of the file to avoid file locking problem. File is deleted by the batch file calling this, again to avoid file locking.
+       Use 'web.config.temp.config' so that protected .config extension is still there. -->
   <Target Name="TransformWebConfig">
     <Copy SourceFiles="$(TransformInputFile)" DestinationFiles="$(TransformInputFile).temp.config" />
     <TransformXml Source="$(TransformInputFile).temp.config" Transform="$(TransformFile)" Destination="$(TransformOutputFile)" />
-    <Delete Files="$(TransformInputFile).temp.config" />
   </Target>
 </Project>
