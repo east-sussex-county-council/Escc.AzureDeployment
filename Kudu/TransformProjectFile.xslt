@@ -44,61 +44,61 @@
     <!-- Check whether the current element matches each referenced assembly name. 
          If none match, output the current element unaltered. -->
     <xsl:choose>
-      <xsl:when test="$ref_1 != '' and self::node()[contains(text(),$ref_1)]">
+      <xsl:when test="$ref_1 != '' and self::node()[contains(text(),concat('\',$ref_1))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_1" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_2 != '' and self::node()[contains(text(),$ref_2)]">
+      <xsl:when test="$ref_2 != '' and self::node()[contains(text(),concat('\',$ref_2))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_2" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_3 != '' and self::node()[contains(text(),$ref_3)]">
+      <xsl:when test="$ref_3 != '' and self::node()[contains(text(),concat('\',$ref_3))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_3" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_4 != '' and self::node()[contains(text(),$ref_4)]">
+      <xsl:when test="$ref_4 != '' and self::node()[contains(text(),concat('\',$ref_4))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_4" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_5 != '' and self::node()[contains(text(),$ref_5)]">
+      <xsl:when test="$ref_5 != '' and self::node()[contains(text(),concat('\',$ref_5))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_5" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_6 != '' and self::node()[contains(text(),$ref_6)]">
+      <xsl:when test="$ref_6 != '' and self::node()[contains(text(),concat('\',$ref_6))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_6" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_7 != '' and self::node()[contains(text(),$ref_7)]">
+      <xsl:when test="$ref_7 != '' and self::node()[contains(text(),concat('\',$ref_7))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_7" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_8 != '' and self::node()[contains(text(),$ref_8)]">
+      <xsl:when test="$ref_8 != '' and self::node()[contains(text(),concat('\',$ref_8))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_8" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_9 != '' and self::node()[contains(text(),$ref_9)]">
+      <xsl:when test="$ref_9 != '' and self::node()[contains(text(),concat('\',$ref_9))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_9" />
         </xsl:call-template>
       </xsl:when>
 
-      <xsl:when test="$ref_10 != '' and self::node()[contains(text(),$ref_10)]">
+      <xsl:when test="$ref_10 != '' and self::node()[contains(text(),concat('\',$ref_10))]">
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_10" />
         </xsl:call-template>
