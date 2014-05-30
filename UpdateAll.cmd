@@ -69,9 +69,9 @@ if "%3"=="" (
 :: Reset commit message
 set DEPLOYMENT_COMMIT_MESSAGE=
 
-:: Update the specific apps for this site
+:: Update the specific apps for this site, then ensure we're back on master
 call %ESCC_DEPLOYMENT_SCRIPTS%..\%2\UpdateDeploymentRepo %1
-
+call git checkout master
 
 :: Update the Kudu deployment script in case its source files have changed.
 :: Combine 3 files to separate out the part of the script unique to each site.

@@ -15,15 +15,16 @@ if %VALID%==false (
 )
 
 :: Add or update all the apps which are currently part of the website. 
-:: Always start by including the Escc.AzureDeployment applciation.
+:: Always start by including the Escc.AzureDeployment application.
+:: Add 'false' to the end of each line to speed up the UpdateAll process
 ::
-:: eg call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.ExampleApplication
+:: eg call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.ExampleApplication false
 
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.AzureDeployment
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 SeparateRepo
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 SeparateRepo.Tests
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication1
-call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2
+call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 Escc.AzureDeployment false
+call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 SeparateRepo false
+call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 SeparateRepo.Tests false
+call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication1 false
+call %ESCC_DEPLOYMENT_SCRIPTS%AddOrUpdateApp %1 WebApplication2 false
 
 :: For any apps removed from the website, delete them from the deployment repo if present
 :: so that they don't get redeployed

@@ -37,6 +37,7 @@ echo Adding %2
 echo ------------------------------------------------------
 echo.
 
+call git checkout master
 call git remote add %2 %1%2
 call git fetch %2
 call git checkout -b %2 %2/master

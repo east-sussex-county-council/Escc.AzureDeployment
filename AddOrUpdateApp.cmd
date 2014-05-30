@@ -22,7 +22,7 @@ if String.Empty%2==String.Empty set VALID=false
 
 if %VALID%==false (
 	echo.
-	echo Usage: AddOrUpdateApp ^<git base URL^> ^<git repo name^>
+	echo Usage: AddOrUpdateApp ^<git base URL^> ^<git repo name^> [^<type false to not return to master branch^>]
 	echo.
 	echo eg AddOrUpdateApp https://github.com/east-sussex-county-council/ ExampleProject
 	echo. 
@@ -41,7 +41,7 @@ if not exist %2 (
 )
 
 if exist %2 (
-	call %ESCC_DEPLOYMENT_SCRIPTS%UpdateApp %2
+	call %ESCC_DEPLOYMENT_SCRIPTS%UpdateApp %2 %3
 	goto exit
 )
 
