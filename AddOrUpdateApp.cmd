@@ -1,11 +1,23 @@
 @echo off
 
+:: Check whether switching back to the master branch can be skipped.
+:: This option should only be used by UpdateAll, because it saves a 
+:: lot of time writing and re-writing files to disk.
+
+set SWITCH_TO_MASTER=false
+if "%3"=="" set SWITCH_TO_MASTER=true
+
 :: Check that this script is being run from the root of the deployment repository.
 :: Exit if not, as we don't want to run these git commands anywhere else.
 
 set VALID=true
 if not exist .git set VALID=false
-if not exist .deployment set VALID=false
+
+:: Skip second check during UpdateAll process, as likely not to be on master branch
+:: and therefore the check will fail.
+if %SWITCH_TO_MASTER%==true (
+  if not exist .deployment set VALID=false
+)
 
 if %VALID%==false (
   echo.
