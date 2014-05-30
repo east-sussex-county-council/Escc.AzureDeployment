@@ -45,14 +45,18 @@ if %VALID%==false (
 
 for /f %%i in ("%0") do set ESCC_DEPLOYMENT_SCRIPTS=%%~dpi
 
-:: Check whether the folder exists. If it doesn't, add the app. If it does, update it.
+:: Check whether a branch exists for the app. If it doesn't, add the app. If it does, update it.
 
-if not exist %2 (
+set BRANCH_EXISTS=false
+call git show-ref --verify --quiet refs/heads/%2
+if %ERRORLEVEL%==0 set BRANCH_EXISTS=true
+
+if %BRANCH_EXISTS%==false (
 	call %ESCC_DEPLOYMENT_SCRIPTS%AddApp %1 %2
 	goto exit
 )
 
-if exist %2 (
+if %BRANCH_EXISTS%==true (
 	call %ESCC_DEPLOYMENT_SCRIPTS%UpdateApp %2 %3
 	goto exit
 )

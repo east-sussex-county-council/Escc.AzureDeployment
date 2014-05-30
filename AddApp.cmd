@@ -1,19 +1,5 @@
 @echo off
 
-:: Check that this script is being run from the root of the deployment repository.
-:: Exit if not, as we don't want to run these git commands anywhere else.
-
-set VALID=true
-if not exist .git set VALID=false
-if not exist .deployment set VALID=false
-
-if %VALID%==false (
-  echo.
-  echo This command must be run from the root of your deployment repository.
-  echo.
-  goto exit
-)
-
 :: Check that the git base URL and repo name to add were specified as parameters
 
 set VALID=true
@@ -29,6 +15,23 @@ if %VALID%==false (
 	goto exit
 )
 
+:: Check that this script is being run from the root of the deployment repository.
+:: Exit if not, as we don't want to run these git commands anywhere else.
+:: We need to be on the master branch for this check, and for the actual Add operation.
+
+call git checkout master
+
+set VALID=true
+if not exist .git set VALID=false
+if not exist .deployment set VALID=false
+
+if %VALID%==false (
+  echo.
+  echo This command must be run from the root of your deployment repository.
+  echo.
+  goto exit
+)
+
 :: Read in the new repo into the current repo using subtree merging
 
 echo.
@@ -37,7 +40,6 @@ echo Adding %2
 echo ------------------------------------------------------
 echo.
 
-call git checkout master
 call git remote add %2 %1%2
 call git fetch %2
 call git checkout -b %2 %2/master
