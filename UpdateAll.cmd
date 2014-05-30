@@ -9,7 +9,7 @@ if not exist .deployment set VALID=false
 
 if %VALID%==false (
   echo.
-  echo This command must be run from the root of your deployment repository.
+  echo This command must be run from the master branch at the root of your deployment repository.
   echo.
   goto exit
 )
@@ -69,18 +69,19 @@ if "%3"=="" (
 :: Reset commit message
 set DEPLOYMENT_COMMIT_MESSAGE=
 
-:: Update the specific apps for this site, then ensure we're back on master
+:: Update the specific apps for this site
 call %ESCC_DEPLOYMENT_SCRIPTS%..\%2\UpdateDeploymentRepo %1
-call git checkout master
 
 :: Update the Kudu deployment script in case its source files have changed.
 :: Combine 3 files to separate out the part of the script unique to each site.
+:: Ensure we're back on the master branch first.
 
 echo.
 echo ------------------------------------------------------
 echo Updating custom Kudu deployment script
 echo ------------------------------------------------------
 echo.
+call git checkout master
 echo @echo. > KuduDeploy.cmd
 echo @echo ------------------------------------------------------ >> KuduDeploy.cmd
 echo @echo Running KuduDeploy.cmd generated at %date% %time% >> KuduDeploy.cmd
