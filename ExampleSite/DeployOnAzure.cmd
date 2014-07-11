@@ -4,12 +4,12 @@
 ::
 :: To restore dependencies from Nuget:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\ExampleProject\ExampleProject.sln"
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\ExampleProject.sln
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 :: 
 :: or, to restore packages for a single project specify the folder:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\ExampleProject"
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::
@@ -38,7 +38,7 @@
 
 :: Test SeparateRepo.Tests
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.sln"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.sln
 IF !ERRORLEVEL! NEQ 0 goto error
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\RunTests" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.csproj"
