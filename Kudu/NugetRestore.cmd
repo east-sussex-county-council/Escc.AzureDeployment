@@ -18,7 +18,8 @@ IF /I "%1" NEQ "" (
       call "%NUGET_EXE%" restore "%NUGET_RESTORE_FROM%\packages.config" -OutputDirectory "%NUGET_RESTORE_FROM%\packages" -NonInteractive
       goto exit
   ) 
-  else (
+  
+  if not exist "%NUGET_RESTORE_FROM%\packages.config" (
       :: Otherwise assume parameter was a solution file, useful when the solution file is in the same folder as the project file being built.
       :: Syntax like if /I "%NUGET_RESTORE_FROM:~-4%"==".sln" to check value was invalid on Kudu.
       call "%NUGET_EXE%" restore %NUGET_RESTORE_FROM% -NonInteractive
