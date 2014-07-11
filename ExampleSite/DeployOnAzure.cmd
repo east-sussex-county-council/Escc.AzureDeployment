@@ -6,6 +6,11 @@
 ::
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\ExampleProject\ExampleProject.sln"
 ::     IF !ERRORLEVEL! NEQ 0 goto error
+:: 
+:: or, to restore packages for a single project specify the folder:
+::
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" "%DEPLOYMENT_SOURCE%\ExampleProject"
+::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::
 :: To run unit tests with NUnit:
