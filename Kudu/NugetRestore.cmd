@@ -13,9 +13,9 @@ echo.
 
 IF /I "%1" NEQ "" (
 
-  :: When the solution file is elsewhere, restore from packages.config next to the .csproj by specifying the folder
+  :: When the solution file is one level higher, restore from packages.config next to the .csproj by specifying the folder
   if exist "%1\packages.config" (
-      call "%NUGET_EXE%" restore "%1\packages.config" -OutputDirectory "%1\packages" -NonInteractive
+      call "%NUGET_EXE%" restore "%1\packages.config" -OutputDirectory "%1\..\packages" -NonInteractive
       goto exit
   ) 
   
