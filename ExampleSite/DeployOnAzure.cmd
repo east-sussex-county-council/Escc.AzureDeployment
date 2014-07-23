@@ -15,7 +15,7 @@
 ::
 :: To run unit tests with NUnit:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\RunTests" "%DEPLOYMENT_SOURCE%\ExampleProject.Tests\ExampleProject.Tests.csproj"
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\RunTests" %DEPLOYMENT_SOURCE%\ExampleProject.Tests\ ExampleProject.Tests.csproj
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::
