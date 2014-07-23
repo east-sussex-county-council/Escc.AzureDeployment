@@ -5,7 +5,7 @@ if "%1"=="" (
 	goto exit
 )
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildLibrary" "%DEPLOYMENT_SOURCE%\SeparateRepo.Tests\SeparateRepo.Tests.csproj"
+call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildLibrary" %1
 IF !ERRORLEVEL! NEQ 0 goto exit
 
 echo.
