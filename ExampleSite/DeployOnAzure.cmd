@@ -2,14 +2,14 @@
 :: Build, test and configure applications on Azure
 :: -----------------------------------------------
 ::
-:: To restore dependencies from Nuget:
+:: To restore Nuget dependencies from a solution file:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\ExampleProject.sln
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\ ExampleProject.sln
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 :: 
 :: or, to restore packages for a single project specify the folder:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::
