@@ -10,6 +10,8 @@ if "%1"=="" (
 :: If a folder with the name of the repo exists, delete the folder from the master
 :: branch, delete the tracking branch and delete the remote
 
+call git checkout master
+  
 if exist %1 (
   echo.
   echo ------------------------------------------------------
@@ -17,8 +19,6 @@ if exist %1 (
   echo ------------------------------------------------------
   echo.
 
-  call git checkout master
-  
   REM Check that this script is being run from the root of the deployment repository.
   REM Exit if not, as we don't want to run these git commands anywhere else.
 
