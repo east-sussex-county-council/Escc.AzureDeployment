@@ -1,19 +1,5 @@
 @echo off
 
-:: Check that this script is being run from the root of the deployment repository.
-:: Exit if not, as we don't want to run these git commands anywhere else.
-
-set VALID=true
-if not exist .git set VALID=false
-if not exist .deployment set VALID=false
-
-if %VALID%==false (
-  echo.
-  echo This command must be run from the root of your deployment repository.
-  echo.
-  goto exit
-)
-
 :: Check that the git repo name to delete was specified as a parameter
 
 if "%1"=="" (
@@ -32,6 +18,23 @@ if exist %1 (
   echo.
 
   call git checkout master
+  
+  :: Check that this script is being run from the root of the deployment repository.
+  :: Exit if not, as we don't want to run these git commands anywhere else.
+
+  set VALID=true
+  if not exist .git set VALID=false
+  if not exist .deployment set VALID=false
+
+  if %VALID%==false (
+    echo.
+    echo This command must be run from the root of your deployment repository.
+    echo.
+    goto exit
+  )
+  
+  :: Delete the branch and the remote
+  
   call git rm -rf %1
   call git branch -D %1
   call git remote remove %1
