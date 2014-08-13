@@ -19,8 +19,8 @@ if exist %1 (
 
   call git checkout master
   
-  :: Check that this script is being run from the root of the deployment repository.
-  :: Exit if not, as we don't want to run these git commands anywhere else.
+  REM Check that this script is being run from the root of the deployment repository.
+  REM Exit if not, as we don't want to run these git commands anywhere else.
 
   set VALID=true
   if not exist .git set VALID=false
@@ -33,7 +33,7 @@ if exist %1 (
     goto exit
   )
   
-  :: Delete the branch and the remote
+  REM Delete the branch and the remote
   
   call git rm -rf %1
   call git branch -D %1
