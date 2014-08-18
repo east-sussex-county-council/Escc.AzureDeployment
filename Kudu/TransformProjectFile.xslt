@@ -36,8 +36,9 @@
     
   </xsl:template>
 
-  <!-- Update solution-relative references to NuGet packages to be project-relative, by removing everything before \packages\ -->
-  <xsl:template match="msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath[contains(text(),'\packages\')]">
+  <!-- Update solution-relative references to NuGet packages to be project-relative, by removing everything before \packages\. 
+       This can match the element directly, or be called when another template matches the same element and overrides this one. -->
+  <xsl:template match="msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath[contains(text(),'\packages\')]" name="UpdatePackagesHintPath">
     <xsl:call-template name="OutputHintPath">
       <xsl:with-param name="DllFile" select="concat('packages\', substring-after(., '\packages\'))" />
     </xsl:call-template>
@@ -119,6 +120,12 @@
         <xsl:call-template name="OutputHintPath">
           <xsl:with-param name="DllFile" select="$ref_10" />
         </xsl:call-template>
+      </xsl:when>
+
+      <xsl:when test="self::node()[contains(text(),'\packages\')]">
+        <!-- When the UpdateHintPath template is called, it usually means UpdatePackagesHintPath has been overridden by another template
+             later in the XSL matching the same HintPath element. So call it directly instead. -->
+        <xsl:call-template name="UpdatePackagesHintPath" />
       </xsl:when>
 
       <xsl:otherwise>
