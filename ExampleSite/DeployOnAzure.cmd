@@ -7,9 +7,9 @@
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\ ExampleProject.sln
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 :: 
-:: or, to restore packages for a single project specify the folder:
+:: or, to restore packages for a single project:
 ::
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\ExampleProject\ packages.config
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::
