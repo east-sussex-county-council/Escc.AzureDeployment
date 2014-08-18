@@ -40,6 +40,7 @@
        This can match the element directly, or be called when another template matches the same element and overrides this one. -->
   <xsl:template match="msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath[contains(text(),'\packages\')]" name="UpdatePackagesHintPath">
     <xsl:call-template name="OutputHintPath">
+      <xsl:with-param name="DllPath" select="''" />
       <xsl:with-param name="DllFile" select="concat('packages\', substring-after(., '\packages\'))" />
     </xsl:call-template>
   </xsl:template>
@@ -64,60 +65,70 @@
     <xsl:choose>
       <xsl:when test="$ref_1 != '' and self::node()[contains(text(),concat('\',$ref_1))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_1" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_2 != '' and self::node()[contains(text(),concat('\',$ref_2))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_2" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_3 != '' and self::node()[contains(text(),concat('\',$ref_3))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_3" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_4 != '' and self::node()[contains(text(),concat('\',$ref_4))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_4" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_5 != '' and self::node()[contains(text(),concat('\',$ref_5))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_5" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_6 != '' and self::node()[contains(text(),concat('\',$ref_6))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_6" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_7 != '' and self::node()[contains(text(),concat('\',$ref_7))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_7" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_8 != '' and self::node()[contains(text(),concat('\',$ref_8))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_8" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_9 != '' and self::node()[contains(text(),concat('\',$ref_9))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_9" />
         </xsl:call-template>
       </xsl:when>
 
       <xsl:when test="$ref_10 != '' and self::node()[contains(text(),concat('\',$ref_10))]">
         <xsl:call-template name="OutputHintPath">
+          <xsl:with-param name="DllPath" select="$ReferenceDllPath" />
           <xsl:with-param name="DllFile" select="$ref_10" />
         </xsl:call-template>
       </xsl:when>
@@ -136,10 +147,11 @@
 
   <!-- Output an amended HintPath element using the path specified in $ReferenceDllPath and the file in $DllFile -->
   <xsl:template name="OutputHintPath">
+    <xsl:param name="DllPath" />
     <xsl:param name="DllFile" />
     <!-- Output HintPath element as CDATA to avoid adding msbuild namespace -->
     <xsl:text disable-output-escaping="yes"><![CDATA[<HintPath>]]></xsl:text>
-    <xsl:value-of select="$ReferenceDllPath"/>
+    <xsl:value-of select="$DllPath"/>
     <xsl:value-of select="$DllFile"/>
     <xsl:text disable-output-escaping="yes"><![CDATA[</HintPath>]]></xsl:text>
   </xsl:template>
