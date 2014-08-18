@@ -36,6 +36,13 @@
     
   </xsl:template>
 
+  <!-- Update solution-relative references to NuGet packages to be project-relative, by removing everything before \packages\ -->
+  <xsl:template match="msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath[contains(text(),'\packages\')]">
+    <xsl:call-template name="OutputHintPath">
+      <xsl:with-param name="DllFile" select="concat('packages\', substring-after(., '\packages\'))" />
+    </xsl:call-template>
+  </xsl:template>
+
   <!-- Template to be called from a derived stylesheet matching on msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath. 
        The parameters should be the names of the assemblies whose paths should be replaced by $ReferenceDllPath. If there are not enough
        parameters, update this stylesheet to add more. -->
