@@ -26,6 +26,16 @@
     <xsl:text disable-output-escaping="yes"><![CDATA[</AssemblyOriginatorKeyFile>]]></xsl:text>
   </xsl:template>
 
+  <!-- Remove any references to the MS Build version of NuGet package restore. These are only required to support the way we work locally,
+       and cause problems when deployed to Azure. Empty templates cause the elements to be removed. -->
+  <xsl:template match="msbuild:Project/msbuild:Target/msbuild:Error[@Condition=&quot;!Exists('$(SolutionDir)\.nuget\NuGet.targets')&quot;]">
+    
+  </xsl:template>
+
+  <xsl:template match="msbuild:Project/msbuild:Import[@Project=&quot;$(SolutionDir)\.nuget\NuGet.targets&quot;]">
+    
+  </xsl:template>
+
   <!-- Template to be called from a derived stylesheet matching on msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath. 
        The parameters should be the names of the assemblies whose paths should be replaced by $ReferenceDllPath. If there are not enough
        parameters, update this stylesheet to add more. -->
