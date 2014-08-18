@@ -5,7 +5,7 @@ if "%1"=="" set VALID=false
 if "%2"=="" set VALID=false
 
 if %VALID%==false (
-	echo Usage: NugetRestore ^<relative path to folder containing packages.config or .sln file^> ^<packages.config or .sln filename^> ^<output directory (defaults to 'packages')^>
+	echo Usage: NugetRestore ^<relative path to folder containing packages.config or .sln file^> ^<packages.config or .sln filename^> ^<output directory - defaults to 'packages'^>
 	goto exit
 )
 
