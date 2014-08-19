@@ -25,7 +25,9 @@ IF /I "%1" NEQ "" (
   :: NuGet restore to ./packages folder unless a path is specified
   if /I "%2" NEQ "" (
       
+      pushd %1
       call "%NUGET_EXE%" restore %1%2 -OutputDirectory %3packages -NonInteractive 
+      popd
       goto exit
   )
 
