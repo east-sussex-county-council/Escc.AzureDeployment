@@ -5,7 +5,7 @@ if "%1"=="" set VALID=false
 if "%2"=="" set VALID=false
 
 if %VALID%==false (
-	echo Usage: NugetRestore ^<relative path to folder containing packages.config or .sln file^> ^<packages.config or .sln filename^> ^<output directory - defaults to 'packages'^>
+	echo Usage: NugetRestore ^<relative path to folder containing packages.config or .sln file^> ^<packages.config or .sln filename^> ^<path to packages folder - optional^>
 	goto exit
 )
 
@@ -22,15 +22,10 @@ IF /I "%1" NEQ "" (
       copy "%DEPLOYMENT_TRANSFORMS%nuget.config" %1
   )
 
-  :: NuGet restore to packages folder unless otherwise specified
+  :: NuGet restore to ./packages folder unless a path is specified
   if /I "%2" NEQ "" (
-      set NUGET_OUTPUT_DIRECTORY=packages
       
-      if /I "%3" NEQ "" (
-        set NUGET_OUTPUT_DIRECTORY=%3
-      )
-      
-      call "%NUGET_EXE%" restore %1%2 -OutputDirectory %NUGET_OUTPUT_DIRECTORY% -NonInteractive 
+      call "%NUGET_EXE%" restore %1%2 -OutputDirectory %3packages -NonInteractive 
       goto exit
   )
 
