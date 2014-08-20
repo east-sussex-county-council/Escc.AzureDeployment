@@ -10,7 +10,7 @@ if "%2"=="" (
 	goto exit
 )
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %1 packages.config ..\packages
+call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %1 packages.config ..\
 IF !ERRORLEVEL! NEQ 0 goto exit
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildLibrary" %1 %2
