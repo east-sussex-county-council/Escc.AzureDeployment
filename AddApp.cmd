@@ -41,6 +41,7 @@ echo ------------------------------------------------------
 echo.
 
 call git remote add %2 %1%2
+:: Fetch from remote repo. Can't test for success using "| find" because fetch doesn't support that.
 call git fetch %2
 call git checkout -b %2 %2/master
 call git checkout master

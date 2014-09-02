@@ -71,6 +71,7 @@ set DEPLOYMENT_COMMIT_MESSAGE=
 
 :: Update the specific apps for this site
 call %ESCC_DEPLOYMENT_SCRIPTS%..\%2\UpdateDeploymentRepo %1
+if %ERRORLEVEL%==1 goto exit
 
 :: Update the Kudu deployment script in case its source files have changed.
 :: Combine 3 files to separate out the part of the script unique to each site.
@@ -99,7 +100,8 @@ if "%DEPLOYMENT_COMMIT_MESSAGE%" neq "" (
 )
 
 :exit
+set ERRORLEVEL_TO_RETURN=%ERRORLEVEL%
 :: Reset commit message
 set DEPLOYMENT_COMMIT_MESSAGE=
 
-exit /b 
+exit /b %ERRORLEVEL_TO_RETURN%

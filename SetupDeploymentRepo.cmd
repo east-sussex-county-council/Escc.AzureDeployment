@@ -62,6 +62,18 @@ call git commit -m "Configure Kudu deployment script"
 :: The 'false' parameter prevents syncing with Azure as the git remote won't be setup yet.
 
 call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %1 %2 false
+if %ERRORLEVEL%==1 (
+  echo.
+  echo -------------------------------------------------------------------------
+  echo Rolling back...
+  echo -------------------------------------------------------------------------
+  echo.
+  echo There was an error. Review any messages displayed above and try again.
+  rm -r -f .git
+  del .deployment
+  del KuduDeploy.cmd
+  goto exit
+)
 
 echo.
 echo -------------------------------------------------------------------------
