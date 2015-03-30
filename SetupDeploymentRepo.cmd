@@ -2,7 +2,8 @@
 
 :: Check if the current directory is empty. The command to check this is an odd one. It works, but doesn't find a .git directory.
 
-dir /b | find /v "Some arbitrary string that won't be found" >nul && (set VALID=false) || (set VALID=true)
+REM dir /b | find /v "Some arbitrary string that won't be found" >nul && (set VALID=false) || (set VALID=true)
+set VALID=true
 if exist .git set VALID=false
 if %VALID%==false (
   echo.
