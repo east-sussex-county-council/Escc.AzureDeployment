@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web>
+    <compilation>
+      <assemblies xdt:Transform="Insert">
+        <remove assembly="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <remove assembly="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+      </assemblies>
+    </compilation>
+    <roleManager enabled="false" xdt:Transform="Insert" />
+  </system.web>
+
+  <system.webServer>
+    <modules>
+      <remove name="UrlRewriteModule" xdt:Transform="Insert" />
+      <remove name="UmbracoModule" xdt:Transform="Insert" />
+      <remove name="ClientDependencyModule" xdt:Transform="Insert" />
+      <remove name="ImageProcessorModule" xdt:Transform="Insert" />
+      <remove name="MicrosoftCmsUrlRedirectionModule" xdt:Transform="Insert" />
+   </modules>
+  </system.webServer>
+</configuration>
