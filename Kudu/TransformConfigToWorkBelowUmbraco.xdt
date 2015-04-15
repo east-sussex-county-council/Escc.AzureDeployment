@@ -2,11 +2,10 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <system.web>
     <compilation>
-      <assemblies>
-        <remove assembly="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xdt:Transform="Remove" xdt:Locator="Match(assembly)" />
-        <remove assembly="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xdt:Transform="Remove" xdt:Locator="Match(assembly)" />
-        <remove assembly="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xdt:Transform="Insert" />
-        <remove assembly="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xdt:Transform="Insert" />
+      <assemblies xdt:Transform="Remove" />
+      <assemblies xdt:Transform="Insert">
+        <remove assembly="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <remove assembly="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
       </assemblies>
     </compilation>
     <roleManager xdt:Transform="Remove" />
