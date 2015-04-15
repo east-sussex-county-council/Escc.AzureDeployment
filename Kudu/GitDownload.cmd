@@ -19,10 +19,10 @@ set ESCC_CURRENT_GIT_TAG=none
 if exist %1 (
   pushd %1
 
-  :: Get the git tag which is currently at the HEAD of the repo
+  REM Get the git tag which is currently at the HEAD of the repo
   FOR /F "delims=" %%i IN ('git describe') DO set ESCC_CURRENT_GIT_TAG=%%i
 
-  :: If it's not the tag we want, get all tags and switch to the right one
+  REM If it's not the tag we want, get all tags and switch to the right one
   if %ESCC_CURRENT_GIT_TAG%==%2 (
     echo %1 already up-to-date.
   ) else (
@@ -32,8 +32,8 @@ if exist %1 (
 
   popd
 ) else (
-  :: Download the project from github using a tagged commit, so that if the
-  :: deployment is retried the same commit is used, not a newer one
+  REM Download the project from github using a tagged commit, so that if the
+  REM deployment is retried the same commit is used, not a newer one
   call git clone -b %2 "https://github.com/east-sussex-county-council/%1.git" "%DEPLOYMENT_SOURCE%\%1"
 )
 
