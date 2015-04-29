@@ -30,7 +30,7 @@ if exist %1 (
     REM if we are deploying an update over existing files there may have been local changes that will prevent a 
     REM git pull. Resetting to HEAD, which will be the previous tag, fixes this. The transforms will then
     REM get re-applied to the new tag.
-    call get reset --hard HEAD
+    call git reset --hard HEAD
     call git pull origin master --tags
     call git checkout tags/%2
   )
