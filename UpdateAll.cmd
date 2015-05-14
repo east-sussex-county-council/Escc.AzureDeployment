@@ -83,6 +83,7 @@ echo Updating custom Kudu deployment script
 echo ------------------------------------------------------
 echo.
 call git checkout master
+copy %ESCC_DEPLOYMENT_SCRIPTS%Kudu\GitDownload.cmd .
 echo @echo. > KuduDeploy.cmd
 echo @echo ------------------------------------------------------ >> KuduDeploy.cmd
 echo @echo Running KuduDeploy.cmd generated at %date% %time% >> KuduDeploy.cmd

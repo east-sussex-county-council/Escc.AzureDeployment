@@ -63,6 +63,11 @@ IF NOT DEFINED MSBUILD_PATH (
 :: https://connect.microsoft.com/VisualStudio/feedback/details/758772/generateresource-fails-for-net-3-5-application-when-net-4-5-has-been-installed 
 set DisableOutOfProcTaskHost=true 
 
+:: Download deployment scripts
+
+call GitDownload Escc.AzureDeployment v1.0.0
+IF !ERRORLEVEL! NEQ 0 goto error
+
 :: Download test runner
 
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu
