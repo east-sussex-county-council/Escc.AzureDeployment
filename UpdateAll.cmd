@@ -90,7 +90,9 @@ echo @echo Running KuduDeploy.cmd generated at %date% %time% >> KuduDeploy.cmd
 echo @echo ------------------------------------------------------ >> KuduDeploy.cmd
 echo @echo. >> KuduDeploy.cmd
 type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%..\%2\DeployOnAzure.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd >> KuduDeploy.cmd
-call git commit KuduDeploy.cmd -m "Updated Kudu deployment script"
+call git add KuduDeploy.cmd
+call git add GitDownload.cmd
+call git commit -m "Updated Kudu deployment script"
 if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
 
 :: If anything was updated, force another commit so we can control the message displayed 
