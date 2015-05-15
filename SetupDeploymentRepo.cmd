@@ -59,7 +59,7 @@ call git add .deployment
 call git add KuduDeploy.cmd
 call git commit -m "Configure Kudu deployment script"
 
-:: Pull in the applications to deploy as git subtrees.
+:: Build the Kudu deployment script
 :: The 'false' parameter prevents syncing with Azure as the git remote won't be setup yet.
 
 call %ESCC_DEPLOYMENT_SCRIPTS%UpdateAll %1 %2 false
@@ -73,6 +73,7 @@ if %ERRORLEVEL%==1 (
   rm -r -f .git
   del .deployment
   del KuduDeploy.cmd
+  del GitDownload.cmd
   goto exit
 )
 

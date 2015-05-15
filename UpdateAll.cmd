@@ -66,13 +66,6 @@ if "%3"=="" (
   call git pull azure master
 )
 
-:: Reset commit message
-set DEPLOYMENT_COMMIT_MESSAGE=
-
-:: Update the specific apps for this site
-call %ESCC_DEPLOYMENT_SCRIPTS%..\%2\UpdateDeploymentRepo %1
-if %ERRORLEVEL%==1 goto exit
-
 :: Update the Kudu deployment script in case its source files have changed.
 :: Combine 3 files to separate out the part of the script unique to each site.
 :: Ensure we're back on the master branch first.
@@ -92,19 +85,8 @@ echo @echo. >> KuduDeploy.cmd
 type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%..\%2\DeployOnAzure.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd >> KuduDeploy.cmd
 call git add KuduDeploy.cmd
 call git add GitDownload.cmd
-call git commit -m "Updated Kudu deployment script"
-if %ERRORLEVEL%==0 set DEPLOYMENT_COMMIT_MESSAGE=%DEPLOYMENT_COMMIT_MESSAGE%Updated Kudu deployment script.
-
-:: If anything was updated, force another commit so we can control the message displayed 
-:: in the Azure deployments list.
-if "%DEPLOYMENT_COMMIT_MESSAGE%" neq "" (
-  echo. >> KuduDeploy.cmd
-  call git commit KuduDeploy.cmd -m "%DEPLOYMENT_COMMIT_MESSAGE%"
-)
+call git commit -m "Updated Kudu deployment script at %date% %time%"
 
 :exit
 set ERRORLEVEL_TO_RETURN=%ERRORLEVEL%
-:: Reset commit message
-set DEPLOYMENT_COMMIT_MESSAGE=
-
 exit /b %ERRORLEVEL_TO_RETURN%

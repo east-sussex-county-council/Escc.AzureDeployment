@@ -3,16 +3,17 @@ Escc.AzureDeployment
 
 This is a scripted deployment process for websites hosted on [Azure Websites](www.windowsazure.com) and deployed using git. We use it for [the East Sussex County Council website](https://www.eastsussex.gov.uk).
 
-Each application on a large website has a separate git repository, but each Azure Website has a single git repository, so we have to combine our projects into a single git repository for deployment. We do this using [subtree merging](http://typecastexception.com/post/2013/03/16/Managing-Nested-Libraries-Using-the-GIT-Subtree-Merge-Workflow.aspx).
+Each application on a large website has a separate git repository, but each Azure Website has a single git repository, so we can't deploy our website simply by deploying the original git repository. Instead we create a repository containing just a deployment script. We then push the repository to Azure, where it is deployed by [Kudu](https://github.com/projectkudu/kudu). By default Kudu deploys only the first project it finds, so we use a [custom deployment script](http://blog.amitapple.com/post/38419111245/azurewebsitecustomdeploymentpart3).
 
-We then push the repository to Azure, where it is deployed by [Kudu](https://github.com/projectkudu/kudu). By default Kudu deploys only the first project it finds, so we use a [custom deployment script](http://blog.amitapple.com/post/38419111245/azurewebsitecustomdeploymentpart3) to deploy each project to a specific folder.
+The deployment script downloads individual repositories from github, using git tags to ensure that each version of the deployment script will deploy a consistent version of each application, based on a specific tagged commit, every time it is run. 
 
 Our custom deployment script:
 
-* [runs unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/)
+* can [run unit tests before deployment](http://channel9.msdn.com/Shows/Windows-Azure-Friday/Custom-Web-Site-Deployment-Scripts-with-Kudu-with-David-Ebbo) using [NUnit](http://www.nunit.org/)
 * manages dependencies using [NuGet package restore](http://docs.nuget.org/docs/reference/package-restore)
 * signs assemblies using MSBuild and XSL to point to our strong name key
 * manages secrets using [web.config transforms](http://msdn.microsoft.com/en-us/library/dd465326.aspx)
+* deploys each project to a specific folder.
 
 
 Combine multiple applications into a single git repository
@@ -34,7 +35,7 @@ Clone this repository, then open a command line in a new, empty directory where 
 
 `<site scripts folder>` is the name of the sibling folder of this repository containing the scripts for the site to set up (see above).
 
-This will create a new git repository which includes every application from all the separate repositories which make up the website. You can then set up the Azure Website as a remote for that repository and push to it.
+This will create a new git repository with a custom Kudu deployment script for the website. You can then set up the Azure Website as a remote for that repository and push to it.
 
 ### Update your deployment repository
 
@@ -42,13 +43,8 @@ Open a command line at the root of your deployment repository and run the follow
 
 `<path to this repository>\UpdateAll <git base URL>`
 
-or, if you're sure only one application has changed, you can run this command:
-
-`<path to this repository>\AddOrUpdateApp <git base URL> <git repo name>`
-
 You can then push the deployment repository to Azure.
 
-Note that you can't run the script from the copy of `Escc.AzureDeployment` which exists inside your deployment repository, because the process involves switching to branches where those scripts are not available.
 
 #### A shortcut
 
@@ -61,15 +57,15 @@ You can then simply type `UpdateAll` in the root directory of your deployment re
 
 ### Deploy a new application
 
-If you've created a new application for the website, you need to modify `UpdateDeploymentRepo.cmd` and `DeployOnAzure.cmd` to include your application repository.
+If you've created a new application for the website, you need to modify `DeployOnAzure.cmd` to include your application repository.
 
-Commit and push the updated scripts, then follow the steps under 'Update your deployment repository'.
+Commit and push the updated script, then follow the steps under 'Update your deployment repository'.
 
 ### Delete an obsolete application
 
 Follow these steps to completely remove an application from the website:
 
-1.	Remove references to the application from `DeployOnAzure.cmd` in this repository, and move it from the 'Add or update' to the 'Delete' section of `UpdateDeploymentRepo.cmd`. Commit and push your changes.
+1.	Remove references to the application from `DeployOnAzure.cmd`. Commit and push your changes.
 2.	Update your deployment repository using `UpdateAll` as described in 'Update your deployment repository' above.
 3.	Use FTP to connect to Azure and delete the application folder.
 4.	Delete any related resources such as databases and storage containers.
@@ -131,6 +127,6 @@ The folder structure mimics the repository folder structure, so to transform the
 
     call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig" ExampleSite\web
 
-If a `web.config` file is already present at the destination (for example, installed by a nuget package) then that file will be transformed by `Web.Release.config` and `web.example.config` will be ignored.
+If no `web.example.config` file is present at the destination but there is a `web.config` (for example, installed by a nuget package) then that file will be transformed by `Web.Release.config` instead.
 
  
