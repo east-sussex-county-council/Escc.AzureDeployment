@@ -16,61 +16,29 @@ Our custom deployment script:
 * deploys each project to a specific folder.
 
 
-Combine multiple applications into a single git repository
----------------------------------------------------------- 
+## How to configure and use Escc.AzureDeployment for a new website
 
-### Set up Escc.AzureDeployment for a new website
+Create a new git repository in a sibling folder of Escc.AzureDeployment. Copy the contents of the `ExampleSite` folder from this project and customise them for your site. (See 'Configure deployment on Azure using Kudu' below for more on how to write `DeployOnAzure.cmd`.) 
 
-Create a new git repository in a sibling folder of Escc.AzureDeployment. Copy the contents of the `ExampleSite` folder from this project and customise them for your site. (See 'Configure deployment on Azure using Kudu' below for more on how to write `DeployOnAzure.cmd`.) Push the repository to source control so that the deployment scripts can update it from there.
+When you're ready to deploy to Azure, run the following command:
 
-Next, set up your deployment repository as described below.
+`..\Escc.AzureDeployment\UpdateDeploymentScript.cmd`
 
-### Set up your deployment repository
+This will create a custom Kudu deployment script for the website. You can then set up the Azure Website as a remote for your repository and push to it.
 
-Clone this repository, then open a command line in a new, empty directory where you want to create the deployment repository:
-
-`<path to this repository>\SetupDeploymentRepo <git base URL>` `<site scripts folder>`
-
-`<git base url>` is a URL such as `https://github.com/east-sussex-county-council/` to which we can add a project name to get a full repository URL.
-
-`<site scripts folder>` is the name of the sibling folder of this repository containing the scripts for the site to set up (see above).
-
-This will create a new git repository with a custom Kudu deployment script for the website. You can then set up the Azure Website as a remote for that repository and push to it.
-
-### Update your deployment repository
-
-Open a command line at the root of your deployment repository and run the following command:
-
-`<path to this repository>\UpdateAll <git base URL>`
-
-You can then push the deployment repository to Azure.
-
-
-#### A shortcut
-
-You can make it easier to update your repository by creating a batch file somewhere in your path with the following line. Replace `<path to this repository>`, `<git base URL>` and `<site scripts folder>` with the correct values for your environment.
-
-`@<path to this repository>\UpdateAll <git base URL>` `<site scripts folder>`
-
-You can then simply type `UpdateAll` in the root directory of your deployment repository.
-
-
-### Deploy a new application
-
-If you've created a new application for the website, you need to modify `DeployOnAzure.cmd` to include your application repository.
-
-Commit and push the updated script, then follow the steps under 'Update your deployment repository'.
+Each time you update `DeployOnAzure.cmd`, for example to add a new application, run `UpdateDeploymentScript.cmd` and push your repository again to your remote on Azure.
 
 ### Delete an obsolete application
 
 Follow these steps to completely remove an application from the website:
 
-1.	Remove references to the application from `DeployOnAzure.cmd`. Commit and push your changes.
-2.	Update your deployment repository using `UpdateAll` as described in 'Update your deployment repository' above.
-3.	Use FTP to connect to Azure and delete the application folder.
-4.	Delete any related resources such as databases and storage containers.
-5.	On the Configure tab in the Azure Portal, remove any application settings, connection strings, virtual applications and directories associated with the application.
-6.	Set up 301 redirects to replacement content if appropriate.
+1.	Remove references to the application from `DeployOnAzure.cmd`. 
+2.	Run `UpdateDeploymentScript.cmd` and push your repository to your remote on Azure.
+3.	Commit and push your changes to your master git repository.
+4.	Use FTP to connect to Azure and delete the application folder.
+5.	Delete any related resources such as databases and storage containers.
+6.	On the Configure tab in the Azure Portal, remove any application settings, connection strings, virtual applications and directories associated with the application.
+7.	Set up 301 redirects to replacement content if appropriate.
 
 Configure deployment on Azure using Kudu
 ----------------------------------------

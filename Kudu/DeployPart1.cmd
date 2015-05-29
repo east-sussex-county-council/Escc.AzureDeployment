@@ -65,7 +65,7 @@ set DisableOutOfProcTaskHost=true
 
 :: Download deployment scripts
 
-call GitDownload Escc.AzureDeployment v2.0.0
+call Kudu\GitDownload Escc.AzureDeployment v2.0.0
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: Download test runner
