@@ -37,9 +37,17 @@ if exist %1 (
 
   popd
 ) else (
-  REM Download the project from github using a tagged commit, so that if the
+  REM Prefix is required, suffix is optional
+  if "%ESCC_GIT_URL_PREFIX%"=="" (
+    echo ERROR: You must set the ESCC_GIT_URL_PREFIX and, optionally, the ESCC_GIT_URL_SUFFIX environment variables to specify
+    echo the path to your git repositories. The path will be built up as ESCC_GIT_URL_PREFIX + repo name + ESCC_GIT_URL_SUFFIX.
+    set ERRORLEVEL=1
+    goto exit
+  )
+  
+  REM Download the project from git using a tagged commit, so that if the
   REM deployment is retried the same commit is used, not a newer one
-  call git clone -b %2 "https://github.com/east-sussex-county-council/%1.git" "%DEPLOYMENT_SOURCE%\%1"
+  call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%DEPLOYMENT_SOURCE%\%1"
 )
 
 :exit
