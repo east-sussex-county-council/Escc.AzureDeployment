@@ -1,10 +1,5 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
-:: Download deployment scripts
-
-call Kudu\GitDownload Escc.AzureDeployment v3.0.0
-IF !ERRORLEVEL! NEQ 0 goto error
-
 :: ----------------------
 :: KUDU Deployment Script
 :: Version: 0.1.5
@@ -67,6 +62,11 @@ IF NOT DEFINED MSBUILD_PATH (
 :: Work around bug which errors when building .NET 3.5 apps with RESX files
 :: https://connect.microsoft.com/VisualStudio/feedback/details/758772/generateresource-fails-for-net-3-5-application-when-net-4-5-has-been-installed 
 set DisableOutOfProcTaskHost=true 
+
+:: Download deployment scripts
+
+call Kudu\GitDownload Escc.AzureDeployment v3.0.0
+IF !ERRORLEVEL! NEQ 0 goto error
 
 :: Download test runner
 
