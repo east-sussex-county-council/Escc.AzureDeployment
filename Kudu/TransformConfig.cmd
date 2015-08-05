@@ -1,40 +1,36 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 if String.Empty%1==String.Empty (
-	echo Usage: TransformConfig ^<folder name\configuration filename without extension^>
+	echo Usage: TransformConfig ^<folder name\target filename^> ^<folder name\transform filename^>
 	echo.
-	echo eg TransformConfig ExampleSite\web
+	echo eg TransformConfig ExampleSite\web.config ExampleSite\web.mychanges.config
 	goto exit
 )
 
 echo.
 echo ------------------------------------------------------
-echo Transforming %1.config
+echo Transforming %1 using %2
 echo ------------------------------------------------------
 echo.
 
-if exist "%DEPLOYMENT_TRANSFORMS%%1.Release.config" (
+if exist "%DEPLOYMENT_SOURCE%\%1" (
+  if exist "%DEPLOYMENT_TRANSFORMS%%2" (
 
-  REM Look first for *.example.config
-  if exist "%DEPLOYMENT_SOURCE%\%1.example.config" (
-    %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.example.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1.Release.config" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
-  )
-  
-  REM If that wasn't found, fall back to the possibility that web.config has been created some other way
-  if not exist "%DEPLOYMENT_SOURCE%\%1.example.config" (
-    if exist "%DEPLOYMENT_SOURCE%\%1.config" (
-      %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1.Release.config" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
+    %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%2" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1"
+
+    REM Delete temp file created by transformation, because deleting it within the transformation fails due to file locking 
+    if exist "%DEPLOYMENT_SOURCE%\%1.temp.config" (
+      del "%DEPLOYMENT_SOURCE%\%1.temp.config" 
     )
-  )      
-
-  REM Delete temp file created by transformation, because deleting it within the transformation fails due to file locking 
-  if exist "%DEPLOYMENT_SOURCE%\%1.config.temp.config" (
-    del "%DEPLOYMENT_SOURCE%\%1.config.temp.config" 
   )
 )
 
-if not exist "%DEPLOYMENT_TRANSFORMS%%1.Release.config" (
-  echo %DEPLOYMENT_TRANSFORMS%%1.Release.config not found.
+if not exist "%DEPLOYMENT_SOURCE%\%1" (
+  echo %DEPLOYMENT_SOURCE%\%1 target file not found.
+)
+
+if not exist "%DEPLOYMENT_TRANSFORMS%%2" (
+  echo %DEPLOYMENT_TRANSFORMS%%2 transform not found.
 )
 
 :exit
