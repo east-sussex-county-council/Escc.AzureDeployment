@@ -17,13 +17,13 @@ if exist "%DEPLOYMENT_TRANSFORMS%%1.Release.config" (
 
   REM Look first for *.example.config
   if exist "%DEPLOYMENT_SOURCE%\%1.example.config" (
-    %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.example.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1.Release.config" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
+    "%MSBUILD_PATH%" "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.example.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1.Release.config" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
   )
   
   REM If that wasn't found, fall back to the possibility that web.config has been created some other way
   if not exist "%DEPLOYMENT_SOURCE%\%1.example.config" (
     if exist "%DEPLOYMENT_SOURCE%\%1.config" (
-      %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1.Release.config" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
+      "%MSBUILD_PATH%" "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.config" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%1.Release.config" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
     )
   )      
 

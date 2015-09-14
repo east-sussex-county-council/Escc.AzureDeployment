@@ -16,7 +16,7 @@ echo.
 if exist "%DEPLOYMENT_SOURCE%\%1" (
   if exist "%DEPLOYMENT_TRANSFORMS%%2" (
 
-    %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%2" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1"
+    "%MSBUILD_PATH%" "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%%2" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1"
 
     REM Delete temp file created by transformation, because deleting it within the transformation fails due to file locking 
     if exist "%DEPLOYMENT_SOURCE%\%1.temp.config" (

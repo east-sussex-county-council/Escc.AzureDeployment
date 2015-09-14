@@ -14,7 +14,7 @@ echo ------------------------------------------------------
 echo.
 
 if exist "%DEPLOYMENT_SOURCE%\%1.config" (
-  %MSBUILD_PATH% "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.config" /p:TransformFile="%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu\TransformConfigToWorkBelowUmbraco.xdt" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
+  "%MSBUILD_PATH%" "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1.config" /p:TransformFile="%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu\TransformConfigToWorkBelowUmbraco.xdt" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1.config"
 )
 
 :: Delete temp file created by transformation, because deleting it within the transformation fails due to file locking 
