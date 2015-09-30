@@ -27,7 +27,7 @@
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile" %DEPLOYMENT_SOURCE%\ExampleLibrary\ ExampleLibrary.csproj
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 
-::     call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig" ExampleProject\web
+::     call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigFromExample" ExampleProject\web
 ::     IF !ERRORLEVEL! NEQ 0 goto error
 ::
 ::     call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" %DEPLOYMENT_SOURCE%\ExampleProject\ ExampleProject.csproj
@@ -72,7 +72,7 @@ IF !ERRORLEVEL! NEQ 0 goto error
 call "%ESCC_DEPLOYMENT_SCRIPTS%\BuildApplication" %DEPLOYMENT_SOURCE%\WebApplication2\ WebApplication2.csproj
 IF !ERRORLEVEL! NEQ 0 goto error
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig" WebApplication2\web
+call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigFromExample" WebApplication2\web
 IF !ERRORLEVEL! NEQ 0 goto error
 
 call "%ESCC_DEPLOYMENT_SCRIPTS%\Sync" WebApplication2
