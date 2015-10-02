@@ -65,7 +65,7 @@ Use Nuget to add the `NUnit.Runners.2.6.3` package to your solution, or create a
 
 For each `web.config` file we include it in the Visual Studio project with a build action of Content, but exclude it from our git repository. Instead we commit a `web.example.config` file with a build action of None, and secrets removed. This file typically needs to be different in the live environment, so we upload a [web.config transform](http://msdn.microsoft.com/en-us/library/dd465326.aspx) on to a directory on Azure. 
 
-We then put the path to that directory into a `DEPLOYMENT_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it.
+We then put the path to that directory into a `DEPLOYMENT_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it. When your build script runs it will make a copy of that directory tied to the specific commit of the build script. This makes the redeploy function in Azure websites work, because a specific deployment will always go back to a copy of the `DEPLOYMENT_TRANSFORMS` directory as it was at the time the script was originally run.
 
 The folder structure mimics the repository folder structure, so to transform the `web.example.config` at the root of the `ExampleSite` folder, put the `Web.Release.config` into an `ExampleSite` folder inside `DEPLOYMENT_TRANSFORMS`. You then need to add the `TransformConfigFromExample` command to your `DeployOnAzure.cmd` file, leaving off the `.config` part of the filename.
 
