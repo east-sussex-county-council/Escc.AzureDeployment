@@ -59,10 +59,6 @@ echo. >> Kudu\KuduDeploy.cmd
 echo :: To update the content of this file with changes from Escc.AzureDeployment, >> Kudu\KuduDeploy.cmd
 echo :: run ..\Escc.AzureDeployment\UpdateDeploymentScript.cmd >> Kudu\KuduDeploy.cmd
 echo. >> Kudu\KuduDeploy.cmd
-echo @echo ------------------------------------------------------ >> Kudu\KuduDeploy.cmd
-echo @echo Running KuduDeploy.cmd generated at %date% %time% >> Kudu\KuduDeploy.cmd
-echo @echo ------------------------------------------------------ >> Kudu\KuduDeploy.cmd
-echo @echo. >> Kudu\KuduDeploy.cmd
 type %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart1.cmd %ESCC_DEPLOYMENT_SCRIPTS%Kudu\DeployPart3.cmd >> Kudu\KuduDeploy.cmd
 
 call git add .deployment
