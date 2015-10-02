@@ -59,19 +59,12 @@ IF NOT DEFINED MSBUILD_PATH (
   SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 )
 
-:: Work around bug which errors when building .NET 3.5 apps with RESX files
-:: https://connect.microsoft.com/VisualStudio/feedback/details/758772/generateresource-fails-for-net-3-5-application-when-net-4-5-has-been-installed 
-set DisableOutOfProcTaskHost=true 
-
 :: Download deployment scripts
-
-call Kudu\GitDownload Escc.AzureDeployment v3.0.1
+call Kudu\GitDownload Escc.AzureDeployment v3.1.0
 IF !ERRORLEVEL! NEQ 0 goto error
-
-:: Download test runner
 
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu
 
-call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\Escc.AzureDeployment\ Escc.AzureDeployment.sln
+:: Pass control to a script just downloaded
+call "%ESCC_DEPLOYMENT_SCRIPTS%\DeployPart2"
 IF !ERRORLEVEL! NEQ 0 goto error
-
