@@ -43,24 +43,10 @@ IF NOT DEFINED KUDU_SYNC_CMD (
 
   :: Locally just running "kuduSync" would also work
   SET KUDU_SYNC_CMD=node "%appdata%\npm\node_modules\kuduSync\bin\kuduSync"
-)
-
-IF NOT DEFINED DEPLOYMENT_TEMP (
-  SET DEPLOYMENT_TEMP=%temp%\___deployTemp%random%
-  SET CLEAN_LOCAL_DEPLOYMENT_TEMP=true
-)
-
-IF DEFINED CLEAN_LOCAL_DEPLOYMENT_TEMP (
-  IF EXIST "%DEPLOYMENT_TEMP%" rd /s /q "%DEPLOYMENT_TEMP%"
-  mkdir "%DEPLOYMENT_TEMP%"
-)
-
-IF NOT DEFINED MSBUILD_PATH (
-  SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
-)
+) 
 
 :: Download deployment scripts
-call Kudu\GitDownload Escc.AzureDeployment v3.1.1
+call Kudu\GitDownload Escc.AzureDeployment v3.2.0
 IF !ERRORLEVEL! NEQ 0 goto error
 
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu

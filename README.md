@@ -18,15 +18,17 @@ Our custom deployment script:
 
 ## How to configure and use Escc.AzureDeployment for a new website
 
-Create a new git repository in a sibling folder of Escc.AzureDeployment. Copy the contents of the `ExampleSite` folder from this project and customise them for your site. (See 'Deploy applications on Azure using a Kudu deployment script' below for more on how to write `DeployOnAzure.cmd`.) 
-
-When you're ready to deploy to Azure, run the following command:
+Create a new git repository in a sibling folder of Escc.AzureDeployment. Copy the contents of the `ExampleSite` folder from this project, and run the following command to copy bootstrap code from this project into your new repository:
 
 `..\Escc.AzureDeployment\UpdateDeploymentScript.cmd`
 
-This will create a custom Kudu deployment script for the website. You can then set up the Azure Website as a remote for your repository and push to it.
+Now customise `DeployOnAzure.cmd` to create a custom Kudu deployment script for the website. (See 'Deploy applications on Azure using a Kudu deployment script' below for more on how to write `DeployOnAzure.cmd`.)
 
-Each time you update `DeployOnAzure.cmd`, for example to add a new application, run `UpdateDeploymentScript.cmd` and push your repository again to your remote on Azure.
+You can then set up the Azure Website as a remote for your repository and push to it.
+
+Each time you update `DeployOnAzure.cmd`, for example to add a new application, commit your changes and  push your repository again to your remote on Azure.
+
+If you ever need to update your script to use a newer version of `Escc.AzureDeployment`, you can just run `..\Escc.AzureDeployment\UpdateDeploymentScript.cmd` again from your repository.
 
 ## Deploy applications on Azure using a Kudu deployment script
 
