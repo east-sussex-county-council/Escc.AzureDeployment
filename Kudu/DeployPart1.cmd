@@ -60,7 +60,7 @@ IF NOT DEFINED MSBUILD_PATH (
 )
 
 :: Download deployment scripts
-call Kudu\GitDownload Escc.AzureDeployment v3.1.0
+call Kudu\GitDownload Escc.AzureDeployment v3.1.1
 IF !ERRORLEVEL! NEQ 0 goto error
 
 set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu

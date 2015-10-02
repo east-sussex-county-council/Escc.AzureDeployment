@@ -18,10 +18,10 @@ echo.
 IF /I "%1" NEQ "" (
 
   :: Copy a custom nuget.config if present, to allow a custom package source to be specified
-  if exist "%DEPLOYMENT_TRANSFORMS%nuget.config" (
-      copy "%DEPLOYMENT_TRANSFORMS%nuget.config" %1
+  if exist "%DEPLOYMENT_TRANSFORMS%\nuget.config" (
+      copy "%DEPLOYMENT_TRANSFORMS%\nuget.config" %1
   ) else (
-    echo "%DEPLOYMENT_TRANSFORMS%nuget.config" not found
+    echo "%DEPLOYMENT_TRANSFORMS%\nuget.config" not found
     exit /b 1 
   )
 
