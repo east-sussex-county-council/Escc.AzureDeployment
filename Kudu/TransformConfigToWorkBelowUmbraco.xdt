@@ -10,6 +10,13 @@
     </compilation>
     <roleManager xdt:Transform="Remove" />
     <roleManager enabled="false" xdt:Transform="Insert" />
+    <pages>
+      <!-- This will clear tagMappings only if none are defined in this application. 
+           If this app defines its own tagMappings, it is responsible for deciding whether to clear the parent ones. -->
+      <tagMapping xdt:Transform="Insert">
+        <clear />
+      </tagMapping>
+    </pages>
   </system.web>
 
   <system.webServer>

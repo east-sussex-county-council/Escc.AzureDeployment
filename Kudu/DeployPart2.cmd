@@ -71,6 +71,9 @@ if not exist %DEPLOYMENT_SOURCE%\builds\%ESCC_CURRENT_GIT_COMMIT% (
 REM Update the original environment variable for the duration of this script
 set DEPLOYMENT_TRANSFORMS=%DEPLOYMENT_SOURCE%\builds\%ESCC_CURRENT_GIT_COMMIT%
 
+REM Set an environment variable for apps to access deployment scripts
+set ESCC_DEPLOYMENT_SCRIPTS=%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\Kudu
+
 echo.
 echo ------------------------------------------------------
 echo Downloading NUnit test runner
