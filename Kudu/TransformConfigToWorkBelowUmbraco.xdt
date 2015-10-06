@@ -11,11 +11,12 @@
     <roleManager xdt:Transform="Remove" />
     <roleManager enabled="false" xdt:Transform="Insert" />
     <pages>
-      <!-- This will clear tagMappings only if none are defined in this application. 
-           If this app defines its own tagMappings, it is responsible for deciding whether to clear the parent ones. -->
+      <!-- Insert tagMapping only if it's missing. No command for that so use a workaround.
+           Method is to insert it anyway, and if there are now two remove the second one. -->
       <tagMapping xdt:Transform="Insert">
         <clear />
       </tagMapping>
+      <tagMapping xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web/pages/tagMapping[2])" />
     </pages>
   </system.web>
 
