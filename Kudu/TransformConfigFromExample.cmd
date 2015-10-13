@@ -38,4 +38,4 @@ if not exist "%DEPLOYMENT_TRANSFORMS%\%1.Release.config" (
 )
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

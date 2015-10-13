@@ -23,4 +23,4 @@ if exist "%DEPLOYMENT_SOURCE%\%1.config.temp.config" (
 )
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

@@ -51,4 +51,4 @@ if exist %1 (
 )
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

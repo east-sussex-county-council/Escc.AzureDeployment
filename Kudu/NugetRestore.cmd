@@ -37,4 +37,4 @@ IF /I "%1" NEQ "" (
 )
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

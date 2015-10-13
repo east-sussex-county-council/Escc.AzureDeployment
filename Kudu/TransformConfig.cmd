@@ -34,4 +34,4 @@ if not exist "%DEPLOYMENT_TRANSFORMS%\%2" (
 )
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

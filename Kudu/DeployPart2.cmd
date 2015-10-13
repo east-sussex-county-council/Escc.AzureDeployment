@@ -16,7 +16,7 @@ IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
   echo Installing Kudu Sync
   call npm install kudusync -g --silent
-  IF !ERRORLEVEL! NEQ 0 goto error
+  IF !ERRORLEVEL! NEQ 0 goto exit
 
   :: Locally just running "kuduSync" would also work
   SET KUDU_SYNC_CMD=node "%appdata%\npm\node_modules\kuduSync\bin\kuduSync"
@@ -61,7 +61,7 @@ if not exist %DEPLOYMENT_SOURCE%\builds\%ESCC_CURRENT_GIT_COMMIT% (
   echo Making a copy of the build folder for this deployment at %DEPLOYMENT_SOURCE%\builds\%ESCC_CURRENT_GIT_COMMIT%
   robocopy %DEPLOYMENT_TRANSFORMS% %DEPLOYMENT_SOURCE%\builds\%ESCC_CURRENT_GIT_COMMIT% /MIR
   IF !ERRORLEVEL! GTR 7 (
-    echo Error %ERRORLEVEL% copying build files
+    echo Error !ERRORLEVEL! copying build files
     goto exit
   )
 ) else (
@@ -80,12 +80,12 @@ echo Downloading NUnit test runner
 echo ------------------------------------------------------
 echo.
 call "%ESCC_DEPLOYMENT_SCRIPTS%\NugetRestore" %DEPLOYMENT_SOURCE%\Escc.AzureDeployment\ Escc.AzureDeployment.sln
-IF !ERRORLEVEL! NEQ 0 goto error
+IF !ERRORLEVEL! NEQ 0 goto exit
 
 REM The user of this project should have created a script called DeployOnAzure.cmd with the commands specific to
 REM their deployment. Hand over to that now.
 call "%DEPLOYMENT_SOURCE%\DeployOnAzure"
-IF !ERRORLEVEL! NEQ 0 goto error
+IF !ERRORLEVEL! NEQ 0 goto exit
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

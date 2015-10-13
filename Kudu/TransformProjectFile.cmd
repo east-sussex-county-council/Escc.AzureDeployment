@@ -28,4 +28,4 @@ if exist "%1%2.xslt" (
 )
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!

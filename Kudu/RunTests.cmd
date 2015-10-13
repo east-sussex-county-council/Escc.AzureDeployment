@@ -25,4 +25,4 @@ echo.
 call "%DEPLOYMENT_SOURCE%\Escc.AzureDeployment\packages\NUnit.Runners.2.6.3\tools\nunit-console" %1%2 /config=Release /framework=net-4.5
 
 :exit
-exit /b %ERRORLEVEL%
+exit /b !ERRORLEVEL!
