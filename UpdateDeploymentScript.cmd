@@ -47,7 +47,6 @@ echo ------------------------------------------------------
 echo Updating custom Kudu deployment script
 echo ------------------------------------------------------
 echo.
-call git checkout master
 if not exist Kudu md Kudu
 copy %ESCC_DEPLOYMENT_SCRIPTS%Kudu\GitDownload.cmd Kudu
 

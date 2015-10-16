@@ -22,7 +22,7 @@
 
   <system.webServer>
     <modules xdt:Transform="Insert" />
-    <modules xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web/modules[2])" />
+    <modules xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.webServer/modules[2])" />
   </system.webServer>
   
   <system.web>
