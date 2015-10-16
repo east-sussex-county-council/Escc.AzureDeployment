@@ -1,5 +1,30 @@
 <?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  
+  <!-- There's no command for "insert if missing" so this transform uses a workaround to ensure it'll work on any config file that has at least the root <configuration /> element.
+       The workaround is to insert the element you want regardless of whether it's already there, and if there are now two remove the second one. -->
+
+  <system.web xdt:Transform="Insert" />
+  <system.web xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web[2])" />
+
+  <system.web>
+    <compilation xdt:Transform="Insert" />
+    <compilation xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web/compilation[2])" />
+  </system.web>
+
+  <system.web>
+    <pages xdt:Transform="Insert" />
+    <pages xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web/pages[2])" />
+  </system.web>
+
+  <system.webServer xdt:Transform="Insert" />
+  <system.webServer xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.webServer[2])" />
+
+  <system.webServer>
+    <modules xdt:Transform="Insert" />
+    <modules xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web/modules[2])" />
+  </system.webServer>
+  
   <system.web>
     <compilation>
       <assemblies xdt:Transform="Remove" />
@@ -11,8 +36,6 @@
     <roleManager xdt:Transform="Remove" />
     <roleManager enabled="false" xdt:Transform="Insert" />
     <pages>
-      <!-- Insert tagMapping only if it's missing. No command for that so use a workaround.
-           Method is to insert it anyway, and if there are now two remove the second one. -->
       <tagMapping xdt:Transform="Insert">
         <clear />
       </tagMapping>
