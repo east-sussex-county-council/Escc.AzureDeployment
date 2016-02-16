@@ -99,9 +99,9 @@ For each `web.config` file we include it in the Visual Studio project with a bui
 
 We then put the path to that directory into a `DEPLOYMENT_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it. When your build script runs it will make a copy of that directory tied to the specific commit of the build script. This makes the redeploy function in Azure websites work, because a specific deployment will always go back to a copy of the `DEPLOYMENT_TRANSFORMS` directory as it was at the time the script was originally run.
 
-The `DEPLOYMENT_TRANSFORMS` folder structure mimics the repository folder structure, so to transform the `web.example.config` at the root of the `ExampleProject` folder, put the `Web.Release.config` into an `ExampleProject` folder inside `DEPLOYMENT_TRANSFORMS`. You then need to add the `TransformConfigFromExample` command to your `DeployOnAzure.cmd` file, leaving off the `.config` part of the filename.
+To transform the `web.example.config` at the root of the `ExampleProject` folder, put the `Web.Release.config` into an `ExampleProject` folder inside `DEPLOYMENT_TRANSFORMS`. You then need to add the `TransformConfigFromExample` command to your `DeployOnAzure.cmd` file, leaving off the `.config` part of the filename.
 
-    call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigFromExample" ExampleProject\web
+    call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigFromExample" %DEPLOYMENT_SOURCE%\ExampleProject\web  %DEPLOYMENT_TRANSFORMS%\ExampleProject\%1.Release.config
 	IF !ERRORLEVEL! NEQ 0 goto error
 
 If no `web.example.config` file is present at the destination but there is a `web.config` (for example, installed by a NuGet package) then that file will be transformed by `Web.Release.config` instead.
