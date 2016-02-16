@@ -27,10 +27,12 @@ if exist "%DEPLOYMENT_SOURCE%\%1" (
 
 if not exist "%DEPLOYMENT_SOURCE%\%1" (
   echo %DEPLOYMENT_SOURCE%\%1 target file not found.
+  exit /b 1
 )
 
 if not exist "%DEPLOYMENT_TRANSFORMS%\%2" (
   echo %DEPLOYMENT_TRANSFORMS%\%2 transform not found.
+  exit /b 1
 )
 
 :exit
