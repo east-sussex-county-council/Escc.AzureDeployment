@@ -111,12 +111,12 @@ You can also use a `TransformConfig` command to apply other transforms to an exi
 	call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig" %DEPLOYMENT_SOURCE%\ExampleProject\web.config %DEPLOYMENT_TRANSFORMS%\ExampleProject\my-custom-transform.config
 	IF !ERRORLEVEL! NEQ 0 goto error
 
-Note that the paths for this command aren't quoted, which means they can't contain spaces.
+If your application runs in a separate IIS application scope below an [Umbraco](http://umbraco.com/) installation, you need to override or remove some of the settings inherited from Umbraco's `web.config`. You can do that with the `TransformConfigToWorkBelowUmbraco` command.
 
-If your application runs in a separate IIS application scope below an [Umbraco](http://umbraco.com/) installation, you need to override or remove some of the settings inherited from Umbraco's `web.config`. You can do that with the `TransformConfigToWorkBelowUmbraco` command, leaving off the `.config` part of the filename.
-
-	call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigToWorkBelowUmbraco" ExampleProject\web
+	call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigToWorkBelowUmbraco" %DEPLOYMENT_SOURCE%\ExampleProject\web.config
 	IF !ERRORLEVEL! NEQ 0 goto error
+
+Note that the paths for these commands aren't quoted, which means they can't contain spaces.
 
 ### Building your application
 
