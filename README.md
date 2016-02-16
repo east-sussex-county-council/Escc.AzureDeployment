@@ -187,8 +187,7 @@ The build action for each file in the Visual Studio project controls whether it 
 
 Follow these steps to completely remove an application from the website:
 
-1.	Remove references to the application from `DeployOnAzure.cmd`. 
-2.	Run `UpdateDeploymentScript.cmd` and push your repository to your remote on Azure.
+1.	Remove references to the application from `DeployOnAzure.cmd`  and push your repository to your remote on Azure.
 3.	Commit and push your changes to your master git repository.
 4.	Use FTP to connect to Azure and delete the application folder.
 5.	Delete any related resources such as databases and storage containers.
