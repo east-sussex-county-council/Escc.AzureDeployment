@@ -9,7 +9,7 @@ if String.Empty%1==String.Empty (
 
 echo.
 echo ------------------------------------------------------
-echo Transforming %1.config to work below Umbraco
+echo Transforming %1 to work below Umbraco
 echo ------------------------------------------------------
 echo.
 
