@@ -13,25 +13,25 @@ echo Transforming %1 using %2
 echo ------------------------------------------------------
 echo.
 
-if exist "%DEPLOYMENT_SOURCE%\%1" (
-  if exist "%DEPLOYMENT_TRANSFORMS%\%2" (
+if exist "%1" (
+  if exist "%2" (
 
-    "%MSBUILD_PATH%" "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%DEPLOYMENT_SOURCE%\%1" /p:TransformFile="%DEPLOYMENT_TRANSFORMS%\%2" /p:TransformOutputFile="%DEPLOYMENT_SOURCE%\%1"
+    "%MSBUILD_PATH%" "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig.xml" /p:TransformInputFile="%1" /p:TransformFile="%2" /p:TransformOutputFile="%1"
 
     REM Delete temp file created by transformation, because deleting it within the transformation fails due to file locking 
-    if exist "%DEPLOYMENT_SOURCE%\%1.temp.config" (
-      del "%DEPLOYMENT_SOURCE%\%1.temp.config" 
+    if exist "%1.temp.config" (
+      del "%1.temp.config" 
     )
   )
 )
 
-if not exist "%DEPLOYMENT_SOURCE%\%1" (
-  echo %DEPLOYMENT_SOURCE%\%1 target file not found.
+if not exist "%1" (
+  echo %1 target file not found.
   exit /b 1
 )
 
-if not exist "%DEPLOYMENT_TRANSFORMS%\%2" (
-  echo %DEPLOYMENT_TRANSFORMS%\%2 transform not found.
+if not exist "%2" (
+  echo %2 transform not found.
   exit /b 1
 )
 
