@@ -144,9 +144,13 @@ If you have project references within your solution, you need to organise your `
 	call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformProjectFile" %DEPLOYMENT_SOURCE%\ExampleLibrary\ ExampleLibrary.csproj
 	IF !ERRORLEVEL! NEQ 0 goto error
 
-#### Direct references to DLLs, and other changes to project files
+#### Direct references to DLLs
 
-If you have a reference directly to a DLL that file is unlikely to be in your git repository. The best approach is the make a NuGet package for the DLL and reference it that way. However, another approach is to upload the file to a directory on Azure and put the path into a `DEPLOYMENT_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website. Then, create an XSLT file with the same name as your `.csproj` file, eg `MyApp.csproj.xslt` and include it in your git repository. Here's an example:
+If you have a reference directly to a DLL that file is unlikely to be in your git repository. Make a NuGet package for the DLL and reference it that way. 
+
+#### Changes to project files
+
+If you need to alter your `.csproj` file to get it to build, create an XSLT file with the same name as your `.csproj` file, eg `MyApp.csproj.xslt`, and include it in your git repository. Here's an example:
 
     <?xml version="1.0" encoding="utf-8"?>
     <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -158,17 +162,13 @@ If you have a reference directly to a DLL that file is unlikely to be in your gi
         <!-- TransformProjectFile.xslt is from Escc.AzureDeployment and will be copied into this folder at deploy time  -->
         <xsl:include href="TransformProjectFile.xslt"/>
 
+		<!-- This xsl:template is just an example, not a requirement -->
         <xsl:template match="msbuild:Project/msbuild:ItemGroup/msbuild:Reference/msbuild:HintPath">
-            <xsl:call-template name="UpdateHintPath">
-                <xsl:with-param name="ref_1" select="'Example1.dll'" />
-                <xsl:with-param name="ref_2" select="'Example2.dll'" />
-            </xsl:call-template>
+            <!-- Do something with the HintPath -->
         </xsl:template>
     </xsl:stylesheet>
 
-This XSLT file will be run against the `.csproj` project file before it is built, changing the path for the referenced DLLs to the path in your `DEPLOYMENT_TRANSFORMS` app setting. 
-
-You can add any other XSLT changes you want to make to the project file in here too.
+This XSLT file will be used to update the `.csproj` project file before it is built.
 
 #### Missing files
 
