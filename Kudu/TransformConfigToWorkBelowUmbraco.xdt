@@ -21,6 +21,8 @@
   <system.webServer xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.webServer[2])" />
 
   <system.webServer>
+    <httpErrors xdt:Transform="Insert" />
+    <httpErrors xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.webServer/httpErrors[2])" />
     <modules xdt:Transform="Insert" />
     <modules xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.webServer/modules[2])" />
   </system.webServer>
@@ -44,6 +46,7 @@
   </system.web>
 
   <system.webServer>
+    <httpErrors existingResponse="Replace" xdt:Transform="SetAttributes(existingResponse)" />
     <modules>
       <remove name="UrlRewriteModule" xdt:Transform="Remove" xdt:Locator="Match(name)" />
       <remove name="UrlRewriteModule" xdt:Transform="Insert" />
