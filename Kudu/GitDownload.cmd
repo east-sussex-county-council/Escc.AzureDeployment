@@ -21,8 +21,8 @@ if "%3"=="" (
   set ESCC_GIT_DEPLOYMENT_PATH=%3
 )
 
-if exist %1 (
-  pushd %1
+if exist %ESCC_GIT_DEPLOYMENT_PATH%\%1 (
+  pushd %ESCC_GIT_DEPLOYMENT_PATH%\%1
 
   REM Get the git tag which is currently at the HEAD of the repo
   FOR /F "delims=" %%i IN ('git describe') DO set ESCC_CURRENT_GIT_TAG=%%i
