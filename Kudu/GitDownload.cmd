@@ -1,9 +1,9 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 if String.Empty%1==String.Empty (
-	echo Usage: GitDownload ^<repo name^> ^<tag^>
+	echo Usage: GitDownload ^<repo name^> ^<tag^> [^<repo path^>]
 	echo.
-	echo eg GitDownload ExampleApplication v1.0.0
+	echo eg GitDownload ExampleApplication v1.0.0 c:\some-path
 	goto exit
 )
 
@@ -15,6 +15,11 @@ echo.
 
 :: Initialise environment variable to prevent syntax error when running on Azure
 set ESCC_CURRENT_GIT_TAG=none
+if "%3"=="" (
+  set ESCC_GIT_DEPLOYMENT_PATH=%DEPLOYMENT_SOURCE%
+) else (
+  set ESCC_GIT_DEPLOYMENT_PATH=%3
+)
 
 if exist %1 (
   pushd %1
@@ -47,7 +52,7 @@ if exist %1 (
   
   REM Download the project from git using a tagged commit, so that if the
   REM deployment is retried the same commit is used, not a newer one
-  call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%DEPLOYMENT_SOURCE%\%1"
+  call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
 )
 
 :exit
