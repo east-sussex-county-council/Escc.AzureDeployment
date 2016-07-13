@@ -24,7 +24,7 @@ IF NOT DEFINED DEPLOYMENT_SOURCE (
 )
 
 :: Download deployment scripts
-call Kudu\GitDownload Escc.AzureDeployment v4.1.4
+call Kudu\GitDownload Escc.AzureDeployment v4.1.5
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: Pass control to a script just downloaded
