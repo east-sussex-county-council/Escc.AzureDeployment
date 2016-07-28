@@ -32,11 +32,12 @@
       <assemblies xdt:Transform="Insert" />
       <assemblies xdt:Transform="Remove" xdt:Locator="XPath(/configuration/system.web/compilation/assemblies[2])" />
       <assemblies>
-        <!-- Use InsertBefore to ensure that these removes apply to the parent config, not any add elements that might be in the file we're transforming.
+        <!-- Use InsertBefore to ensure that these removes apply to the parent config, not any <add /> elements that might be in the file we're transforming.
              However, the XPath selector causes an error when it doesn't match, so insert and remove a temporary element to ensure that never happens. -->
         <transform-helper xdt:Transform="Insert" />
         <remove assembly="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xdt:Transform="InsertBefore(/configuration/system.web/compilation/assemblies/*[1])" />
         <remove assembly="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xdt:Transform="InsertBefore(/configuration/system.web/compilation/assemblies/*[1])" />
+        <remove assembly="Umbraco.ModelsBuilder" xdt:Transform="InsertBefore(/configuration/system.web/compilation/assemblies/*[1])" />
         <transform-helper xdt:Transform="Remove" />
       </assemblies>
       <buildProviders xdt:Transform="Remove" />
