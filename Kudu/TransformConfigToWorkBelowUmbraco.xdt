@@ -75,5 +75,7 @@
     </modules>
   </system.webServer>
 
+  <!-- Inherit the version from Umbraco config, but don't inherit the Umbraco-specific logger -->
   <clientDependency loggerType="" xdt:Transform="SetAttributes(loggerType)" />
+  <clientDependency version="1" xdt:Transform="RemoveAttributes(version)" xdt:Locator="Match(version)" />
 </configuration>
