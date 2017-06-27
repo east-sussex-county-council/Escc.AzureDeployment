@@ -1,9 +1,9 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
-if String.Empty%1==String.Empty (
-	echo Usage: GitDownload ^<repo name^> ^<tag^> [^<repo path^>]
+if "%1"=="" (
+	echo Usage: GitDownload ^<repo name^> ^<tag^> [^<repo path^>] [^<repo URL prefix>^]
 	echo.
-	echo eg GitDownload ExampleApplication v1.0.0 c:\some-path
+	echo eg GitDownload ExampleApplication v1.0.0 c:\some-path /git
 	goto exit
 )
 
@@ -19,6 +19,12 @@ if "%3"=="" (
   set ESCC_GIT_DEPLOYMENT_PATH=%DEPLOYMENT_SOURCE%
 ) else (
   set ESCC_GIT_DEPLOYMENT_PATH=%3
+)
+
+if "%4"=="" (
+  set ESCC_GIT_REPO_URL_PREFIX=none
+) else (
+  set ESCC_GIT_REPO_URL_PREFIX=%4
 )
 
 if exist %ESCC_GIT_DEPLOYMENT_PATH%\%1 (
@@ -51,8 +57,15 @@ if exist %ESCC_GIT_DEPLOYMENT_PATH%\%1 (
   )
   
   REM Download the project from git using a tagged commit, so that if the
-  REM deployment is retried the same commit is used, not a newer one
-  call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
+  REM deployment is retried the same commit is used, not a newer one. 
+  
+  REM Two versions of the command differ only on whether to include the local URL prefix,
+  REM because it's difficult to initialise an environment variable to an empty string.
+  if "%ESCC_GIT_REPO_URL_PREFIX%"=="none" (
+    call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
+  ) else (
+    call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%ESCC_GIT_REPO_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
+  )
 )
 
 :exit
