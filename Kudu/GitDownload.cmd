@@ -21,8 +21,9 @@ if "%3"=="" (
   set ESCC_GIT_DEPLOYMENT_PATH=%3
 )
 
+set ESCC_GIT_REPO_URL_PREFIX=none
 if "%4"=="" (
-  set ESCC_GIT_REPO_URL_PREFIX=none
+  set ESCC_GIT_REPO_URL_PREFIX=%ESCC_GIT_URL_PREFIX%
 ) else (
   set ESCC_GIT_REPO_URL_PREFIX=%4
 )
@@ -49,23 +50,17 @@ if exist %ESCC_GIT_DEPLOYMENT_PATH%\%1 (
   popd
 ) else (
   REM Prefix is required, suffix is optional
-  if "%ESCC_GIT_URL_PREFIX%"=="" (
+  if "%ESCC_GIT_REPO_URL_PREFIX%"=="" (
     echo ERROR: You must set the ESCC_GIT_URL_PREFIX and, optionally, the ESCC_GIT_URL_SUFFIX environment variables to specify
     echo the path to your git repositories. The path will be built up as ESCC_GIT_URL_PREFIX + repo name + ESCC_GIT_URL_SUFFIX.
+    echo Alternatively the prefix can be passed as the fourth command line argument.
     set ERRORLEVEL=1
     goto exit
   )
   
   REM Download the project from git using a tagged commit, so that if the
   REM deployment is retried the same commit is used, not a newer one. 
-  
-  REM Two versions of the command differ only on whether to include the local URL prefix,
-  REM because it's difficult to initialise an environment variable to an empty string.
-  if "%ESCC_GIT_REPO_URL_PREFIX%"=="none" (
-    call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
-  ) else (
-    call git clone -b %2 "%ESCC_GIT_URL_PREFIX%%ESCC_GIT_REPO_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
-  )
+  call git clone -b %2 "%ESCC_GIT_REPO_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%" "%ESCC_GIT_DEPLOYMENT_PATH%\%1"
 )
 
 :exit
