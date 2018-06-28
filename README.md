@@ -95,20 +95,18 @@ This project makes the NUnit test runner available in your Azure environment, by
 
 ### Configuration settings
 
-For each `web.config` file we include it in the Visual Studio project with a build action of Content, but exclude it from our git repository. Instead we commit a `web.example.config` file with a build action of None, and secrets removed. This file typically needs to be different in the live environment, so we upload a [web.config transform](http://msdn.microsoft.com/en-us/library/dd465326.aspx) on to a directory on Azure. 
+For each `web.config` file we include it in the Visual Studio project with a build action of Content, but exclude it from our git repository. Instead we commit a `web.example.config` file with a build action of None, and secrets removed. This file typically needs to be different in the live environment, so we upload a [web.config transform](http://msdn.microsoft.com/en-us/library/dd465326.aspx) as part of the deployment repository.
 
-We then put the path to that directory into a `DEPLOYMENT_TRANSFORMS` app setting on the Configure page in the management portal for the Azure Website, so that the Kudu deployment script can find it. When your build script runs it will make a copy of that directory tied to the specific commit of the build script. This makes the redeploy function in Azure websites work, because a specific deployment will always go back to a copy of the `DEPLOYMENT_TRANSFORMS` directory as it was at the time the script was originally run.
+To transform the `web.example.config` at the root of the `ExampleProject` folder, put the `Web.Release.config` into an `ExampleProject` folder in the deployment repository. You then need to add the `TransformConfigFromExample` command to your `DeployOnAzure.cmd` file, leaving off the `.config` part of the filename.
 
-To transform the `web.example.config` at the root of the `ExampleProject` folder, put the `Web.Release.config` into an `ExampleProject` folder inside `DEPLOYMENT_TRANSFORMS`. You then need to add the `TransformConfigFromExample` command to your `DeployOnAzure.cmd` file, leaving off the `.config` part of the filename.
-
-    call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigFromExample" %DEPLOYMENT_SOURCE%\ExampleProject\web  %DEPLOYMENT_TRANSFORMS%\ExampleProject\%1.Release.config
+    call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfigFromExample" %DEPLOYMENT_SOURCE%\ExampleProject\web  %DEPLOYMENT_SOURCE%\Transforms\ExampleProject\%1.Release.config
 	IF !ERRORLEVEL! NEQ 0 goto error
 
 If no `web.example.config` file is present at the destination but there is a `web.config` (for example, installed by a NuGet package) then that file will be transformed by `Web.Release.config` instead.
 
 You can also use a `TransformConfig` command to apply other transforms to an existing configuration file.
 
-	call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig" %DEPLOYMENT_SOURCE%\ExampleProject\web.config %DEPLOYMENT_TRANSFORMS%\ExampleProject\my-custom-transform.config
+	call "%ESCC_DEPLOYMENT_SCRIPTS%\TransformConfig" %DEPLOYMENT_SOURCE%\ExampleProject\web.config %DEPLOYMENT_SOURCE%\Transforms\ExampleProject\my-custom-transform.config
 	IF !ERRORLEVEL! NEQ 0 goto error
 
 If your application runs in a separate IIS application scope below an [Umbraco](http://umbraco.com/) installation, you need to override or remove some of the settings inherited from Umbraco's `web.config`. You can do that with the `TransformConfigToWorkBelowUmbraco` command.
@@ -129,11 +127,11 @@ There are a number of reasons why your application may fail to build.
 
 #### Strong named assemblies
 
-We give some of our assemblies a strong name, but the path to the strong name key file needs to be different on Azure. We upload our key file to a directory on Azure and put the path into a `DEPLOYMENT_STRONG_NAME_KEY` app setting on the Configure page in the management portal for the Azure Website. `TransformProjectFile` runs automatically on build, and will update the strong name based on that setting.
+If you give some of your assemblies a strong name, the path to the strong name key file needs to be different on Azure. Upload your key file in the deployment repository and put the path into a `DEPLOYMENT_STRONG_NAME_KEY` app setting on the Configure page in the management portal for the Azure Website. `TransformProjectFile` runs automatically on build, and will update the strong name based on that setting.
 
 #### Project references 
 
-If you have project references within your solution, you need to organise your `DeployOnAzure.cmd` file in the order assemblies need to be built. Use `GitDownload` to download a dependent library and run `NuGetRestore` and `TransformProjectFile`  on the library before building the application that depends upon it.
+If you have project references within your solution, you need to organise your `DeployOnAzure.cmd` file in the order assemblies need to be built. Use `GitDownload` to download a dependent library and run `NuGetRestore` and `TransformProjectFile` on the library before building the application that depends upon it.
 
 	call "%ESCC_DEPLOYMENT_SCRIPTS%\GitDownload" ExampleLibrary ExampleTag
 	IF !ERRORLEVEL! NEQ 0 goto error
