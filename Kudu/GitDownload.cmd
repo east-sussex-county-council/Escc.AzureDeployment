@@ -31,6 +31,10 @@ if "%4"=="" (
 if exist %ESCC_GIT_DEPLOYMENT_PATH%\%1 (
   pushd %ESCC_GIT_DEPLOYMENT_PATH%\%1
 
+  REM Reset the origin, because it can include credentials that should be cycled, so we want to use the most up-to-date version
+  call git remote remove origin
+  call git remote add origin "%ESCC_GIT_REPO_URL_PREFIX%%1%ESCC_GIT_URL_SUFFIX%"
+
   REM Get the git tag which is currently at the HEAD of the repo
   FOR /F "delims=" %%i IN ('git describe') DO set ESCC_CURRENT_GIT_TAG=%%i
 
