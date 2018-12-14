@@ -68,8 +68,6 @@
       <remove name="ClientDependencyModule" xdt:Transform="Insert" />
       <remove name="ImageProcessorModule" xdt:Transform="Remove" xdt:Locator="Match(name)" />
       <remove name="ImageProcessorModule" xdt:Transform="Insert" />
-      <remove name="MicrosoftCmsUrlRedirectionModule" xdt:Transform="Remove" xdt:Locator="Match(name)" />
-      <remove name="MicrosoftCmsUrlRedirectionModule" xdt:Transform="Insert" />
       <remove name="BasicAuthHttpModule" xdt:Transform="Remove" xdt:Locator="Match(name)" />
       <remove name="BasicAuthHttpModule" xdt:Transform="Insert" />
     </modules>
