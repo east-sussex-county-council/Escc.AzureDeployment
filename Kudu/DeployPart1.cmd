@@ -59,7 +59,7 @@ SET MSBUILD_PATH=%ProgramFiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe
 :MsbuildPathDefined
 
 :: Download deployment scripts
-call Kudu\GitDownload Escc.AzureDeployment v6.1.2
+call Kudu\GitDownload Escc.AzureDeployment v6.1.3
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: Pass control to a script just downloaded

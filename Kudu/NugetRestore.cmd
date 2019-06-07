@@ -20,10 +20,7 @@ IF /I "%1" NEQ "" (
   :: Copy a custom nuget.config if present, to allow a custom package source to be specified
   if exist "%DEPLOYMENT_SOURCE%\nuget.config" (
       copy "%DEPLOYMENT_SOURCE%\nuget.config" %1
-  ) else (
-    echo "%DEPLOYMENT_SOURCE%\nuget.config" not found
-    exit /b 1 
-  )
+  ) 
 
   :: NuGet restore to ./packages folder unless a path is specified
   if /I "%2" NEQ "" (
